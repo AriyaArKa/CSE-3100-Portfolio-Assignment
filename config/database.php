@@ -10,7 +10,7 @@ class Database
     private $host = 'localhost';
     private $dbname = 'portfolio_db';
     private $username = 'root';
-    private $password = '';
+    private $password = 'arka';
     private $connection;
 
     public function __construct()

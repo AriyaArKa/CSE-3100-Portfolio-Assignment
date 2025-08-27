@@ -9,7 +9,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'portfolio_db');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'arka');
 
 // Site Configuration
 define('SITE_URL', 'http://localhost/Portfolio');
@@ -47,6 +47,7 @@ define('THEME_COOKIE_DURATION', 30 * 24 * 60 * 60); // 30 days
 // Error Reporting (set to false in production)
 define('DEBUG_MODE', true);
 
+// Configure error reporting based on debug mode
 if (DEBUG_MODE) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
