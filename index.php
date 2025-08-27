@@ -1,613 +1,591 @@
 <?php
-// Structure for a full-stack portfolio website using PHP and MySQL
+require_once 'config/config.php';
 
-/**
- * DATABASE SCHEMA
- * 
- * -- User/Admin Table
- * CREATE TABLE users (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   username VARCHAR(50) NOT NULL UNIQUE,
- *   password VARCHAR(255) NOT NULL,
- *   email VARCHAR(100) NOT NULL UNIQUE,
- *   role ENUM('admin', 'client') NOT NULL DEFAULT 'client',
- *   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
- * );
- * 
- * -- Projects Table
- * CREATE TABLE projects (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   title VARCHAR(100) NOT NULL,
- *   description TEXT NOT NULL,
- *   category VARCHAR(50) NOT NULL,
- *   image_url VARCHAR(255),
- *   github_link VARCHAR(255),
- *   live_demo_link VARCHAR(255),
- *   technologies VARCHAR(255) NOT NULL,
- *   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
- * );
- * 
- * -- Skills Table
- * CREATE TABLE skills (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   category VARCHAR(50) NOT NULL,
- *   name VARCHAR(50) NOT NULL,
- *   proficiency INT NOT NULL,
- *   icon VARCHAR(50)
- * );
- * 
- * -- Messages Table
- * CREATE TABLE messages (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   sender_id INT,
- *   receiver_id INT,
- *   subject VARCHAR(100) NOT NULL,
- *   message TEXT NOT NULL,
- *   is_read BOOLEAN DEFAULT FALSE,
- *   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- *   FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE SET NULL,
- *   FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE SET NULL
- * );
- * 
- * -- Services Table
- * CREATE TABLE services (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   title VARCHAR(100) NOT NULL,
- *   description TEXT NOT NULL,
- *   price DECIMAL(10,2) NOT NULL,
- *   duration VARCHAR(50) NOT NULL,
- *   image_url VARCHAR(255)
- * );
- * 
- * -- Orders Table
- * CREATE TABLE orders (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   client_id INT NOT NULL,
- *   service_id INT NOT NULL,
- *   status ENUM('pending', 'processing', 'completed', 'cancelled') DEFAULT 'pending',
- *   requirements TEXT,
- *   price DECIMAL(10,2) NOT NULL,
- *   payment_method VARCHAR(50),
- *   payment_status ENUM('unpaid', 'paid') DEFAULT 'unpaid',
- *   transaction_id VARCHAR(100),
- *   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
- *   FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE,
- *   FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE
- * );
- * 
- * -- Testimonials Table
- * CREATE TABLE testimonials (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   client_name VARCHAR(100) NOT NULL,
- *   client_company VARCHAR(100),
- *   client_position VARCHAR(100),
- *   content TEXT NOT NULL,
- *   rating INT NOT NULL,
- *   is_approved BOOLEAN DEFAULT FALSE,
- *   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
- * );
- * 
- * -- Blog Posts Table
- * CREATE TABLE blog_posts (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   title VARCHAR(200) NOT NULL,
- *   content TEXT NOT NULL,
- *   category VARCHAR(50) NOT NULL,
- *   image_url VARCHAR(255),
- *   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
- * );
- * 
- * -- Analytics Table
- * CREATE TABLE analytics (
- *   id INT AUTO_INCREMENT PRIMARY KEY,
- *   page_visited VARCHAR(50) NOT NULL,
- *   visitor_ip VARCHAR(50) NOT NULL,
- *   country VARCHAR(50),
- *   device VARCHAR(50),
- *   browser VARCHAR(50),
- *   visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
- * );
- */
+// Get personal information
+$personalInfo = $db->fetchOne("SELECT * FROM personal_info WHERE id = 1");
+$socialLinks = $db->fetchAll("SELECT * FROM social_links WHERE is_active = 1 ORDER BY sort_order");
+$skillCategories = $db->fetchAll("
+    SELECT sc.*, GROUP_CONCAT(s.skill_name ORDER BY s.sort_order SEPARATOR '|') as skills,
+           GROUP_CONCAT(s.proficiency_level ORDER BY s.sort_order SEPARATOR '|') as proficiencies
+    FROM skill_categories sc 
+    LEFT JOIN skills s ON sc.id = s.category_id 
+    WHERE sc.is_active = 1 
+    GROUP BY sc.id 
+    ORDER BY sc.sort_order
+");
+$education = $db->fetchAll("SELECT * FROM education ORDER BY start_year DESC");
+$featuredProjects = $db->fetchAll("SELECT * FROM projects WHERE featured = 1 ORDER BY sort_order LIMIT 6");
+$achievements = $db->fetchAll("SELECT * FROM achievements ORDER BY date_achieved DESC LIMIT 8");
+$experience = $db->fetchAll("SELECT * FROM experience ORDER BY start_date DESC");
 
-// File structure
-/**
- * portfolio/
- * ├── admin/
- * │   ├── dashboard.php
- * │   ├── messages.php
- * │   ├── orders.php
- * │   ├── projects.php
- * │   ├── services.php
- * │   ├── settings.php
- * │   ├── skills.php
- * │   └── testimonials.php
- * ├── assets/
- * │   ├── css/
- * │   ├── images/
- * │   ├── js/
- * │   └── uploads/
- * ├── client/
- * │   ├── dashboard.php
- * │   ├── messages.php
- * │   ├── orders.php
- * │   └── profile.php
- * ├── includes/
- * │   ├── chatbot.php
- * │   ├── config.php
- * │   ├── db.php
- * │   ├── footer.php
- * │   ├── functions.php
- * │   ├── header.php
- * │   └── nav.php
- * ├── payment/
- * │   ├── bkash.php
- * │   ├── callback.php
- * │   ├── checkout.php
- * │   └── sslcommerz.php
- * ├── about.php
- * ├── blog.php
- * ├── chat.php
- * ├── contact.php
- * ├── index.php
- * ├── login.php
- * ├── projects.php
- * ├── register.php
- * ├── services.php
- * └── single-project.php
- */
-
-// Sample index.php
+// Get current theme
+$currentTheme = $_COOKIE[THEME_COOKIE_NAME] ?? DEFAULT_THEME;
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo $currentTheme; ?>">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arka Nath - Portfolio & Freelance Services</title>
+    <title><?php echo SITE_TITLE; ?></title>
+    <meta name="description" content="<?php echo sanitize($personalInfo['about_text'] ?? ''); ?>">
+    <meta name="keywords" content="Arka Nath, Computer Science, KUET, Full Stack Developer, Machine Learning">
+    <meta name="author" content="<?php echo sanitize($personalInfo['name'] ?? ''); ?>">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<?php echo SITE_TITLE; ?>">
+    <meta property="og:description" content="<?php echo sanitize($personalInfo['about_text'] ?? ''); ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo SITE_URL; ?>">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <?php include 'includes/header.php'; ?>
-    <?php include 'includes/nav.php'; ?>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="cube-wrapper">
+                <div class="cube-folding">
+                    <span class="leaf1"></span>
+                    <span class="leaf2"></span>
+                    <span class="leaf3"></span>
+                    <span class="leaf4"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#home" class="brand-link">
+                    <span class="brand-text"><?php echo strtok($personalInfo['name'], ' '); ?></span>
+                </a>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#education" class="nav-link">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#skills" class="nav-link">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#achievements" class="nav-link">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </button>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="d-flex align-items-center">
+    <section id="home" class="hero-section">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+        </div>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 d-flex flex-column justify-content-center">
-                    <h1>Arka Braja Prasad Nath</h1>
-                    <h2>Full Stack Developer | AI/ML Specialist | Graphics Designer</h2>
-                    <p>KUET CSE Undergraduate | Freelancer</p>
-                    <div class="d-flex">
-                        <a href="#about" class="btn-get-started scrollto">About Me</a>
-                        <a href="#portfolio" class="btn-portfolio scrollto">View My Work</a>
-                        <a href="#services" class="btn-services scrollto">Hire Me</a>
+            <div class="hero-content" data-aos="fade-up">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Hi, I'm <span class="text-gradient"><?php echo sanitize($personalInfo['name']); ?></span>
+                    </h1>
+                    <h2 class="hero-subtitle">
+                        <span class="typing-text" data-text='["Computer Science Student", "Full Stack Developer", "ML Enthusiast", "Problem Solver"]'></span>
+                    </h2>
+                    <p class="hero-description">
+                        <?php echo sanitize($personalInfo['about_text']); ?>
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i>
+                            Get In Touch
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <i class="fas fa-folder-open"></i>
+                            View Projects
+                        </a>
                     </div>
                 </div>
-                <div class="col-lg-6 hero-img">
-                    <img src="assets/images/profile.jpg" class="img-fluid rounded-circle" alt="Arka Nath">
+                <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+                    <div class="image-container">
+                        <img src="<?php echo getImageUrl($personalInfo['profile_image']); ?>"
+                            alt="<?php echo sanitize($personalInfo['name']); ?>"
+                            class="profile-image">
+                        <div class="image-decoration"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links" data-aos="fade-up" data-aos-delay="400">
+                <?php foreach ($socialLinks as $social): ?>
+                    <a href="<?php echo sanitize($social['url']); ?>"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-link"
+                        aria-label="<?php echo sanitize($social['platform']); ?>">
+                        <i class="<?php echo sanitize($social['icon_class']); ?>"></i>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span class="scroll-text">Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Get to know me</span>
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    A passionate computer science student with a drive for innovation and excellence
+                </p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <div class="about-details">
+                        <h3>Hello! I'm <?php echo sanitize($personalInfo['name']); ?></h3>
+                        <p><?php echo nl2br(sanitize($personalInfo['about_text'])); ?></p>
+
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="<?php echo count($featuredProjects); ?>">0</div>
+                                <div class="stat-label">Projects Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="<?php echo count($achievements); ?>">0</div>
+                                <div class="stat-label">Achievements</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="<?php echo count($skillCategories); ?>">0</div>
+                                <div class="stat-label">Skill Categories</div>
+                            </div>
+                        </div>
+
+                        <?php if ($personalInfo['resume_file']): ?>
+                            <div class="about-actions">
+                                <a href="<?php echo getImageUrl($personalInfo['resume_file']); ?>"
+                                    target="_blank"
+                                    class="btn btn-primary">
+                                    <i class="fas fa-download"></i>
+                                    Download Resume
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="about-visual" data-aos="fade-left" data-aos-delay="200">
+                    <div class="timeline-preview">
+                        <h4>Quick Timeline</h4>
+                        <div class="timeline-items">
+                            <?php foreach (array_slice($education, 0, 3) as $edu): ?>
+                                <div class="timeline-item">
+                                    <div class="timeline-date"><?php echo formatDate($edu['start_year'] . '-01-01'); ?></div>
+                                    <div class="timeline-content">
+                                        <h5><?php echo sanitize($edu['degree']); ?></h5>
+                                        <p><?php echo sanitize($edu['institution']); ?></p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <!-- Education Section -->
+    <section id="education" class="education-section section-padding bg-alternate">
         <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">My Journey</span>
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">
+                    My academic journey and educational background
+                </p>
             </div>
-            <div class="row content">
-                <div class="col-lg-6">
-                    <p>
-                        I'm a Computer Science & Engineering student at Khulna University of Engineering & Technology (KUET). 
-                        With a passion for full-stack development, AI/ML, and graphics design, I offer professional freelance services 
-                        to clients across Bangladesh and worldwide.
-                    </p>
-                    <ul>
-                        <li>Full-stack web development (PHP, MySQL, JavaScript, React)</li>
-                        <li>AI/ML solutions (TensorFlow, PyTorch, Computer Vision)</li>
-                        <li>Mobile and desktop application development</li>
-                        <li>Graphics design and UI/UX solutions</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <div class="education">
-                        <h3>Education</h3>
-                        <div class="education-item">
-                            <h4>Bachelor of Science in Computer Science & Engineering</h4>
-                            <p>Khulna University of Engineering & Technology (KUET)</p>
-                            <p>2023 - Present</p>
+
+            <div class="education-timeline">
+                <?php foreach ($education as $index => $edu): ?>
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+                        <div class="timeline-marker">
+                            <div class="timeline-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
                         </div>
-                        <div class="education-item">
-                            <h4>Higher Secondary Certificate (HSC)</h4>
-                            <p>Engineering University School & College, Dhaka</p>
-                            <p>GPA: 5.00/5.00 | Year: 2021</p>
-                        </div>
-                        <div class="education-item">
-                            <h4>Secondary School Certificate (SSC)</h4>
-                            <p>Motijheel Govt. Boys' High School, Dhaka</p>
-                            <p>GPA: 5.00/5.00 | Year: 2019</p>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <div class="timeline-date">
+                                    <?php echo $edu['start_year']; ?> -
+                                    <?php echo $edu['is_current'] ? 'Present' : $edu['end_year']; ?>
+                                </div>
+                                <?php if ($edu['gpa']): ?>
+                                    <div class="timeline-gpa">GPA: <?php echo sanitize($edu['gpa']); ?></div>
+                                <?php endif; ?>
+                            </div>
+                            <h3 class="timeline-title"><?php echo sanitize($edu['degree']); ?></h3>
+                            <h4 class="timeline-subtitle"><?php echo sanitize($edu['institution']); ?></h4>
+                            <?php if ($edu['location']): ?>
+                                <p class="timeline-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <?php echo sanitize($edu['location']); ?>
+                                </p>
+                            <?php endif; ?>
+                            <?php if ($edu['description']): ?>
+                                <p class="timeline-description"><?php echo sanitize($edu['description']); ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <section id="skills" class="skills-section section-padding">
         <div class="container">
-            <div class="section-title">
-                <h2>My Skills</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">What I know</span>
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-subtitle">
+                    Technologies and tools I work with
+                </p>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="skill-category">
-                        <h3>Programming Languages</h3>
-                        <ul>
-                            <li>C / C++</li>
-                            <li>Java</li>
-                            <li>JavaScript</li>
-                            <li>Python</li>
-                            <li>PHP</li>
-                            <li>Dart</li>
-                            <li>C#</li>
-                            <li>SQL</li>
-                        </ul>
+
+            <div class="skills-container">
+                <?php foreach ($skillCategories as $index => $category):
+                    $skills = explode('|', $category['skills']);
+                    $proficiencies = explode('|', $category['proficiencies']);
+                ?>
+                    <div class="skill-category" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+                        <div class="category-header">
+                            <h3 class="category-title"><?php echo sanitize($category['category_name']); ?></h3>
+                        </div>
+                        <div class="skills-grid">
+                            <?php for ($i = 0; $i < count($skills); $i++):
+                                if (empty($skills[$i])) continue;
+                            ?>
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name"><?php echo sanitize($skills[$i]); ?></span>
+                                        <span class="skill-percentage"><?php echo $proficiencies[$i]; ?>%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-progress="<?php echo $proficiencies[$i]; ?>"></div>
+                                    </div>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="skill-category">
-                        <h3>Web Development</h3>
-                        <ul>
-                            <li>HTML5 / CSS3</li>
-                            <li>React.js</li>
-                            <li>jQuery</li>
-                            <li>Node.js</li>
-                            <li>Express.js</li>
-                            <li>Laravel</li>
-                            <li>Bootstrap</li>
-                            <li>AJAX</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="skill-category">
-                        <h3>Machine Learning & AI</h3>
-                        <ul>
-                            <li>TensorFlow</li>
-                            <li>PyTorch</li>
-                            <li>Keras</li>
-                            <li>Scikit-learn</li>
-                            <li>OpenCV</li>
-                            <li>MediaPipe</li>
-                            <li>YOLOv8</li>
-                            <li>NLP (SpaCy, NLTK)</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="skill-category">
-                        <h3>Tools & Others</h3>
-                        <ul>
-                            <li>GitHub</li>
-                            <li>Android Studio</li>
-                            <li>Unity (C#)</li>
-                            <li>Flutter</li>
-                            <li>Figma</li>
-                            <li>Adobe Illustrator</li>
-                            <li>MongoDB</li>
-                            <li>Firebase</li>
-                        </ul>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects-section section-padding bg-alternate">
         <div class="container">
-            <div class="section-title">
-                <h2>Featured Projects</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">My Work</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">
+                    Some of my recent work and personal projects
+                </p>
             </div>
-            <div class="row">
-                <?php
-                // In real implementation, fetch from database
-                $projects = [
-                    [
-                        'title' => 'AI Chatbot',
-                        'description' => 'Virtual AI Assistant (Doctor) -- Chat App using LLaMA 3 API',
-                        'image' => 'assets/images/projects/chatbot.jpg',
-                        'github' => 'https://github.com/AriyaArKa/AI-Chabot',
-                        'category' => 'AI/ML'
-                    ],
-                    [
-                        'title' => 'Music Recommendation System',
-                        'description' => 'Music Recommendation System using NLP',
-                        'image' => 'assets/images/projects/music.jpg',
-                        'github' => 'https://github.com/AriyaArKa/Music-Recommendation-System',
-                        'category' => 'AI/ML'
-                    ],
-                    [
-                        'title' => 'Plant Disease Detection App',
-                        'description' => 'A beginner level plant disease detection model that works for 3 diseases',
-                        'image' => 'assets/images/projects/plant.jpg',
-                        'github' => 'https://github.com/AriyaArKa/Plant-Disease-Detection-App',
-                        'category' => 'AI/ML'
-                    ],
-                    [
-                        'title' => 'Android Ball Bounce Game',
-                        'description' => 'An android ball bouncing game made with UNITY game engine',
-                        'image' => 'assets/images/projects/game.jpg',
-                        'github' => 'https://github.com/AriyaArKa/Android-Ball-Bounce-game',
-                        'category' => 'Game Development'
-                    ]
-                ];
 
-                foreach ($projects as $project) {
-                    echo '
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card project-card">
-                            <img src="' . $project['image'] . '" class="card-img-top" alt="' . $project['title'] . '">
-                            <div class="card-body">
-                                <span class="badge bg-primary mb-2">' . $project['category'] . '</span>
-                                <h5 class="card-title">' . $project['title'] . '</h5>
-                                <p class="card-text">' . $project['description'] . '</p>
+            <div class="projects-grid">
+                <?php foreach ($featuredProjects as $index => $project): ?>
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+                        <div class="project-image">
+                            <img src="<?php echo getImageUrl($project['image']); ?>"
+                                alt="<?php echo sanitize($project['title']); ?>"
+                                loading="lazy">
+                            <div class="project-overlay">
                                 <div class="project-links">
-                                    <a href="' . $project['github'] . '" class="btn btn-outline-dark btn-sm" target="_blank"><i class="fab fa-github"></i> Code</a>
-                                    <a href="single-project.php?id=1" class="btn btn-primary btn-sm">View Details</a>
+                                    <?php if ($project['github_url']): ?>
+                                        <a href="<?php echo sanitize($project['github_url']); ?>"
+                                            target="_blank"
+                                            class="project-link"
+                                            aria-label="View source code">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                    <?php if ($project['live_url']): ?>
+                                        <a href="<?php echo sanitize($project['live_url']); ?>"
+                                            target="_blank"
+                                            class="project-link"
+                                            aria-label="View live demo">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    ';
-                }
-                ?>
-            </div>
-            <div class="text-center mt-4">
-                <a href="projects.php" class="btn btn-outline-primary">View All Projects</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Services</h2>
-                <p>Professional services I offer to clients in Bangladesh and worldwide</p>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                        <i class="fas fa-code service-icon"></i>
-                        <h3>Web Development</h3>
-                        <p>Full-stack web applications using PHP, MySQL, React.js, and more. From portfolio sites to complex web apps.</p>
-                        <div class="price">Starting at ৳ 15,000</div>
-                        <a href="services.php#web" class="btn btn-outline-primary btn-sm">Details</a>
-                        <a href="contact.php?service=web" class="btn btn-primary btn-sm">Hire Me</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                        <i class="fas fa-robot service-icon"></i>
-                        <h3>AI & ML Solutions</h3>
-                        <p>Custom AI models, computer vision applications, chatbots, and recommendation systems.</p>
-                        <div class="price">Starting at ৳ 20,000</div>
-                        <a href="services.php#ai" class="btn btn-outline-primary btn-sm">Details</a>
-                        <a href="contact.php?service=ai" class="btn btn-primary btn-sm">Hire Me</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                        <i class="fas fa-mobile-alt service-icon"></i>
-                        <h3>Mobile App Development</h3>
-                        <p>Android apps using Java/Kotlin or cross-platform apps with Flutter. Fully functional and user-friendly.</p>
-                        <div class="price">Starting at ৳ 18,000</div>
-                        <a href="services.php#mobile" class="btn btn-outline-primary btn-sm">Details</a>
-                        <a href="contact.php?service=mobile" class="btn btn-primary btn-sm">Hire Me</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                        <i class="fas fa-paint-brush service-icon"></i>
-                        <h3>Graphics Design</h3>
-                        <p>Logo design, posters, banners, UI/UX design, and illustrations for various purposes.</p>
-                        <div class="price">Starting at ৳ 3,000</div>
-                        <a href="services.php#design" class="btn btn-outline-primary btn-sm">Details</a>
-                        <a href="contact.php?service=design" class="btn btn-primary btn-sm">Hire Me</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                        <i class="fas fa-gamepad service-icon"></i>
-                        <h3>Game Development</h3>
-                        <p>2D and 3D games using Unity (C#). Interactive, engaging, and optimized for various platforms.</p>
-                        <div class="price">Starting at ৳ 25,000</div>
-                        <a href="services.php#game" class="btn btn-outline-primary btn-sm">Details</a>
-                        <a href="contact.php?service=game" class="btn btn-primary btn-sm">Hire Me</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="service-box">
-                        <i class="fas fa-database service-icon"></i>
-                        <h3>Database Design</h3>
-                        <p>Efficient database architecture, optimization, and maintenance for web and mobile applications.</p>
-                        <div class="price">Starting at ৳ 10,000</div>
-                        <a href="services.php#database" class="btn btn-outline-primary btn-sm">Details</a>
-                        <a href="contact.php?service=database" class="btn btn-primary btn-sm">Hire Me</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Client Testimonials</h2>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                        <div class="project-content">
+                            <div class="project-type"><?php echo ucfirst($project['project_type']); ?></div>
+                            <h3 class="project-title"><?php echo sanitize($project['title']); ?></h3>
+                            <p class="project-description"><?php echo sanitize($project['description']); ?></p>
+                            <?php if ($project['technologies']): ?>
+                                <div class="project-technologies">
+                                    <?php
+                                    $techs = explode(',', $project['technologies']);
+                                    foreach ($techs as $tech):
+                                    ?>
+                                        <span class="tech-tag"><?php echo trim(sanitize($tech)); ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <p class="testimonial-text">
-                            "Arka developed an AI-based recommendation system for our e-commerce platform that increased our sales by 23%. Excellent work and great communication throughout the project."
-                        </p>
-                        <div class="client-info">
-                            <img src="assets/images/client1.jpg" alt="Client 1" class="client-img">
-                            <div>
-                                <h5>Samir Ahmed</h5>
-                                <p>CEO, TechBD Solutions</p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="section-footer" data-aos="fade-up">
+                <a href="projects.php" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i>
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="achievements-section section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Recognition</span>
+                <h2 class="section-title">Achievements & Awards</h2>
+                <p class="section-subtitle">
+                    Milestones and recognition in my journey
+                </p>
+            </div>
+
+            <div class="achievements-grid">
+                <?php foreach ($achievements as $index => $achievement): ?>
+                    <div class="achievement-card" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
+                        <div class="achievement-icon">
+                            <i class="fas <?php echo $achievement['category'] === 'competition' ? 'fa-trophy' : ($achievement['category'] === 'certification' ? 'fa-certificate' : ($achievement['category'] === 'award' ? 'fa-award' : 'fa-star')); ?>"></i>
+                        </div>
+                        <div class="achievement-content">
+                            <h3 class="achievement-title"><?php echo sanitize($achievement['title']); ?></h3>
+                            <?php if ($achievement['organization']): ?>
+                                <h4 class="achievement-org"><?php echo sanitize($achievement['organization']); ?></h4>
+                            <?php endif; ?>
+                            <p class="achievement-description"><?php echo sanitize($achievement['description']); ?></p>
+                            <div class="achievement-meta">
+                                <?php if ($achievement['position']): ?>
+                                    <span class="achievement-position"><?php echo sanitize($achievement['position']); ?></span>
+                                <?php endif; ?>
+                                <?php if ($achievement['date_achieved']): ?>
+                                    <span class="achievement-date"><?php echo formatDate($achievement['date_achieved'], 'M Y'); ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "Arka designed our company website and implemented a custom CMS. The design is beautiful and the functionality is exactly what we needed. Highly recommended!"
-                        </p>
-                        <div class="client-info">
-                            <img src="assets/images/client2.jpg" alt="Client 2" class="client-img">
-                            <div>
-                                <h5>Nusrat Jahan</h5>
-                                <p>Marketing Director, Fashion House BD</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="testimonial-card">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="testimonial-text">
-                            "The mobile app Arka developed for our business has received great feedback from our customers. The UI is intuitive and the app runs smoothly. Will definitely work with him again."
-                        </p>
-                        <div class="client-info">
-                            <img src="assets/images/client3.jpg" alt="Client 3" class="client-img">
-                            <div>
-                                <h5>Rafiq Islam</h5>
-                                <p>Owner, Dhaka Food Delivery</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section id="cta" class="cta">
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section-padding bg-alternate">
         <div class="container">
-            <div class="text-center">
-                <h3>Ready to start a project?</h3>
-                <p>Let's discuss your ideas and bring them to life with cutting-edge technology and design.</p>
-                <a href="contact.php" class="btn-cta">Contact Me</a>
-                <a href="services.php" class="btn-services">View All Services</a>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Get in touch</span>
+                <h2 class="section-title">Contact Me</h2>
+                <p class="section-subtitle">
+                    Let's discuss opportunities and collaborations
+                </p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><?php echo sanitize($personalInfo['email']); ?></p>
+                        </div>
+                    </div>
+
+                    <?php if ($personalInfo['phone']): ?>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Phone</h4>
+                                <p><?php echo sanitize($personalInfo['phone']); ?></p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($personalInfo['location']): ?>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Location</h4>
+                                <p><?php echo sanitize($personalInfo['location']); ?></p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="contact-social">
+                        <h4>Follow Me</h4>
+                        <div class="social-links-grid">
+                            <?php foreach ($socialLinks as $social): ?>
+                                <a href="<?php echo sanitize($social['url']); ?>"
+                                    target="_blank"
+                                    class="social-link">
+                                    <i class="<?php echo sanitize($social['icon_class']); ?>"></i>
+                                    <span><?php echo sanitize($social['platform']); ?></span>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container" data-aos="fade-left" data-aos-delay="200">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Live Chat Widget -->
-    <div id="chat-widget" class="chat-widget">
-        <div class="chat-header">
-            <h4>Chat with Arka</h4>
-            <button id="minimize-chat" class="minimize-btn"><i class="fas fa-minus"></i></button>
-        </div>
-        <div class="chat-body">
-            <div class="chat-messages" id="chat-messages">
-                <div class="message received">
-                    <p>Hi there! How can I help you today? Feel free to ask me anything about my services.</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><?php echo sanitize($personalInfo['name']); ?></h3>
+                    <p>Computer Science & Engineering Student</p>
+                    <div class="footer-social">
+                        <?php foreach ($socialLinks as $social): ?>
+                            <a href="<?php echo sanitize($social['url']); ?>"
+                                target="_blank"
+                                class="social-link">
+                                <i class="<?php echo sanitize($social['icon_class']); ?>"></i>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#achievements">Achievements</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-envelope"></i> <?php echo sanitize($personalInfo['email']); ?></p>
+                        <?php if ($personalInfo['location']): ?>
+                            <p><i class="fas fa-map-marker-alt"></i> <?php echo sanitize($personalInfo['location']); ?></p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
-            <div class="chat-input">
-                <input type="text" id="message-input" placeholder="Type your message...">
-                <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+
+            <div class="footer-bottom">
+                <p>&copy; <?php echo date('Y'); ?> <?php echo sanitize($personalInfo['name']); ?>. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart text-primary"></i> using PHP, MySQL & JavaScript</p>
             </div>
         </div>
-        <div class="chat-button" id="open-chat">
-            <i class="fas fa-comment"></i>
-        </div>
-    </div>
+    </footer>
 
-    <?php include 'includes/footer.php'; ?>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/main.js"></script>
-    <script>
-        // Chat widget functionality
-        document.getElementById('open-chat').addEventListener('click', function() {
-            document.getElementById('chat-widget').classList.add('active');
-            document.getElementById('open-chat').style.display = 'none';
-        });
-
-        document.getElementById('minimize-chat').addEventListener('click', function() {
-            document.getElementById('chat-widget').classList.remove('active');
-            document.getElementById('open-chat').style.display = 'block';
-        });
-
-        document.getElementById('send-message').addEventListener('click', sendMessage);
-        document.getElementById('message-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        function sendMessage() {
-            const messageInput = document.getElementById('message-input');
-            const message = messageInput.value.trim();
-            
-            if (message !== '') {
-                // Add user message
-                const chatMessages = document.getElementById('chat-messages');
-                chatMessages.innerHTML += `
-                    <div class="message sent">
-                        <p>${message}</p>
-                    </div>
-                `;
-                
-                // Clear input
-                messageInput.value = '';
-                
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // In real implementation, send to server via AJAX and get response
-                // For demo, simulate response after delay
-                setTimeout(function() {
-                    chatMessages.innerHTML += `
-                        <div class="message received">
-                            <p>Thanks for your message! I'll get back to you soon. If you'd like to discuss a project, please share some details about what you need.</p>
-                        </div>
-                    `;
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 1000);
-            }
-        }
-    </script>
 </body>
+
 </html>
