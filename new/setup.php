@@ -14,17 +14,17 @@ $conn = $database->getConnection();
 if ($conn) {
     try {
         // Admin table for authentication
-        $sql_admin = "CREATE TABLE IF NOT EXISTS admin (
+        $sqlAdmin = "CREATE TABLE IF NOT EXISTS admin (
             id INT AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(50) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL,
             email VARCHAR(100) NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        $conn->exec($sql_admin);
+        $conn->exec($sqlAdmin);
 
         // Personal info table
-        $sql_personal = "CREATE TABLE IF NOT EXISTS personal_info (
+        $sqlPersonal = "CREATE TABLE IF NOT EXISTS personal_info (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(100) NOT NULL,
             title VARCHAR(200),
@@ -35,10 +35,10 @@ if ($conn) {
             location VARCHAR(100),
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )";
-        $conn->exec($sql_personal);
+        $conn->exec($sqlPersonal);
 
         // Social links table
-        $sql_social = "CREATE TABLE IF NOT EXISTS social_links (
+        $sqlSocial = "CREATE TABLE IF NOT EXISTS social_links (
             id INT AUTO_INCREMENT PRIMARY KEY,
             platform VARCHAR(50) NOT NULL,
             url VARCHAR(255) NOT NULL,
@@ -46,7 +46,7 @@ if ($conn) {
             is_active BOOLEAN DEFAULT TRUE,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        $conn->exec($sql_social);
+        $conn->exec($sqlSocial);
 
         // Education table
         $sql_education = "CREATE TABLE IF NOT EXISTS education (

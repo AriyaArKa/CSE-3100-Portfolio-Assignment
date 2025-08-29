@@ -10,7 +10,7 @@ $stmt->execute();
 $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Get active social links
-$stmt = $conn->prepare("SELECT * FROM social_links WHERE is_active = 1 ORDER BY created_at");
+$stmt = $conn->prepare("SELECT * FROM social_links WHERE is_active = 1 ORDER BY sort_order ASC");
 $stmt->execute();
 $social_links = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -48,346 +48,130 @@ $stmt->execute();
 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $personal_info ? $personal_info['name'] : 'Arka Braja Prasad Nath'; ?> - Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-        }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-        }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
-            background-size: cover;
-        }
+    <!-- Custom Styles -->
+    <link href="assets/css/style.css" rel="stylesheet">
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="<?php echo $personal_info ? $personal_info['bio'] : 'Computer Science & Engineering Student | Full Stack Developer'; ?>">
+    <meta name="keywords" content="portfolio, developer, computer science, full stack, web development">
+    <meta name="author" content="<?php echo $personal_info ? $personal_info['name'] : 'Arka Braja Prasad Nath'; ?>">
 
-        .section-title {
-            position: relative;
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<?php echo $personal_info ? $personal_info['name'] : 'Arka Braja Prasad Nath'; ?> - Portfolio">
+    <meta property="og:description" content="<?php echo $personal_info ? $personal_info['bio'] : 'Computer Science & Engineering Student | Full Stack Developer'; ?>">
+    <meta property="og:type" content="website">
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        .skill-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .skill-item {
-            margin-bottom: 1.5rem;
-        }
-
-        .skill-progress {
-            height: 8px;
-            border-radius: 10px;
-            background: #f0f0f0;
-            overflow: hidden;
-        }
-
-        .skill-progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border-radius: 10px;
-            transition: width 1s ease-in-out;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .social-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            color: white;
-        }
-
-        .education-card,
-        .achievement-card,
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .education-card:hover,
-        .achievement-card:hover,
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            color: var(--primary-color) !important;
-        }
-
-        .nav-link {
-            color: #333 !important;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .admin-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            border-radius: 50px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .admin-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            color: white;
-        }
-
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .floating-shapes span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            animation: animate 25s linear infinite;
-            bottom: -150px;
-        }
-
-        @keyframes animate {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-                border-radius: 0;
-            }
-
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-                border-radius: 50%;
-            }
-        }
-
-        .section-padding {
-            padding: 5rem 0;
-        }
-    </style>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
 </head>
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <i class="fas fa-code"></i>
-                <?php echo $personal_info ? explode(' ', $personal_info['name'])[0] : 'Arka'; ?>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#education">Education</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#skills">Skills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#achievements">Achievements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; align-items: center;">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="nav-toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="floating-shapes">
-            <span style="left: 10%; animation-delay: 0s;"></span>
-            <span style="left: 20%; animation-delay: 2s;"></span>
-            <span style="left: 30%; animation-delay: 4s;"></span>
-            <span style="left: 40%; animation-delay: 6s;"></span>
-            <span style="left: 50%; animation-delay: 8s;"></span>
-            <span style="left: 60%; animation-delay: 10s;"></span>
-            <span style="left: 70%; animation-delay: 12s;"></span>
-            <span style="left: 80%; animation-delay: 14s;"></span>
-            <span style="left: 90%; animation-delay: 16s;"></span>
-        </div>
-        <div class="container hero-content">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <h1 class="display-4 fw-bold mb-4">
-                        Hi, I'm <?php echo $personal_info ? $personal_info['name'] : 'Arka Braja Prasad Nath'; ?>
-                    </h1>
-                    <h3 class="mb-4">
-                        <?php echo $personal_info ? $personal_info['title'] : 'Computer Science & Engineering Student'; ?>
-                    </h3>
-                    <p class="lead mb-4">
-                        <?php echo $personal_info ? $personal_info['bio'] : 'Passionate about creating innovative solutions through code.'; ?>
-                    </p>
-                    <div class="social-links mb-4">
-                        <?php foreach ($social_links as $link): ?>
-                            <a href="<?php echo $link['url']; ?>" target="_blank" title="<?php echo $link['platform']; ?>">
-                                <i class="<?php echo $link['icon']; ?>"></i>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                    <a href="#contact" class="btn btn-primary btn-lg">
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Hi, I'm <?php echo $personal_info ? $personal_info['name'] : 'Arka Braja Prasad Nath'; ?>
+                </h1>
+                <p class="hero-subtitle">
+                    <?php echo $personal_info ? $personal_info['title'] : 'Computer Science & Engineering Student | Full Stack Developer'; ?>
+                </p>
+                <p class="hero-description">
+                    <?php echo $personal_info ? $personal_info['bio'] : 'Passionate about creating innovative solutions through code and technology.'; ?>
+                </p>
+
+                <div class="social-links">
+                    <?php foreach ($social_links as $link): ?>
+                        <a href="<?php echo htmlspecialchars($link['url']); ?>"
+                            target="_blank"
+                            class="social-link"
+                            title="<?php echo htmlspecialchars($link['platform']); ?>"
+                            onclick="portfolio.trackSocialClick('<?php echo htmlspecialchars($link['platform']); ?>')">
+                            <i class="<?php echo htmlspecialchars($link['icon']); ?>"></i>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">
                         <i class="fas fa-envelope"></i> Get In Touch
                     </a>
-                </div>
-                <div class="col-lg-6 text-center" data-aos="fade-left">
-                    <div class="hero-image">
-                        <i class="fas fa-user-graduate" style="font-size: 15rem; opacity: 0.3;"></i>
-                    </div>
+                    <a href="#projects" class="btn btn-outline">
+                        <i class="fas fa-eye"></i> View Work
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Education Section -->
-    <section id="education" class="section-padding bg-light">
+    <section id="education" class="section section-alt">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Education</h2>
-            <div class="row">
-                <?php foreach ($education as $edu): ?>
-                    <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="education-card">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <i class="fas fa-graduation-cap fa-2x text-primary"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1"><?php echo htmlspecialchars($edu['degree']); ?></h5>
-                                    <h6 class="text-primary mb-2"><?php echo htmlspecialchars($edu['institution']); ?></h6>
-                                    <p class="text-muted mb-2">
-                                        <i class="fas fa-calendar"></i> <?php echo htmlspecialchars($edu['duration']); ?>
-                                        <?php if ($edu['is_current']): ?>
-                                            <span class="badge bg-success ms-2">Current</span>
-                                        <?php endif; ?>
-                                    </p>
-                                    <?php if ($edu['gpa']): ?>
-                                        <p class="text-muted mb-2">
-                                            <i class="fas fa-star"></i> GPA: <?php echo htmlspecialchars($edu['gpa']); ?>
-                                        </p>
-                                    <?php endif; ?>
-                                    <?php if ($edu['description']): ?>
-                                        <p class="mb-0"><?php echo htmlspecialchars($edu['description']); ?></p>
-                                    <?php endif; ?>
-                                </div>
+            <div class="section-title">
+                <h2>Education Journey</h2>
+                <p>My academic path and continuous learning experience</p>
+            </div>
+
+            <div class="education-timeline">
+                <?php foreach ($education as $index => $edu): ?>
+                    <div class="education-item" style="animation-delay: <?php echo $index * 0.2; ?>s">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="education-content">
+                            <h3 class="education-degree"><?php echo htmlspecialchars($edu['degree']); ?></h3>
+                            <h4 class="education-institution"><?php echo htmlspecialchars($edu['institution']); ?></h4>
+                            <div class="education-duration">
+                                <i class="fas fa-calendar"></i>
+                                <?php echo htmlspecialchars($edu['duration']); ?>
+                                <?php if ($edu['is_current']): ?>
+                                    <span class="education-gpa">Current</span>
+                                <?php endif; ?>
                             </div>
+                            <?php if ($edu['gpa']): ?>
+                                <div class="education-gpa">GPA: <?php echo htmlspecialchars($edu['gpa']); ?></div>
+                            <?php endif; ?>
+                            <?php if ($edu['description']): ?>
+                                <p class="education-description"><?php echo htmlspecialchars($edu['description']); ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -396,32 +180,40 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section-padding">
+    <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
-            <div class="row">
+            <div class="section-title">
+                <h2>Skills & Expertise</h2>
+                <p>Technologies and tools I work with</p>
+            </div>
+
+            <div class="grid grid-2">
                 <?php foreach ($skills_by_category as $category => $skills): ?>
-                    <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="skill-card">
-                            <h5 class="mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
                                 <?php if (!empty($skills[0]['category_icon'])): ?>
-                                    <i class="<?php echo $skills[0]['category_icon']; ?> me-2"></i>
+                                    <i class="<?php echo htmlspecialchars($skills[0]['category_icon']); ?>"></i>
+                                <?php else: ?>
+                                    <i class="fas fa-code"></i>
                                 <?php endif; ?>
-                                <?php echo htmlspecialchars($category); ?>
-                            </h5>
+                            </div>
+                            <h3 class="card-title"><?php echo htmlspecialchars($category); ?></h3>
+                        </div>
+                        <div class="card-content">
                             <?php foreach ($skills as $skill): ?>
                                 <div class="skill-item">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span>
+                                    <div class="skill-header">
+                                        <span class="skill-name">
                                             <?php if ($skill['icon']): ?>
-                                                <i class="<?php echo $skill['icon']; ?> me-2"></i>
+                                                <i class="<?php echo htmlspecialchars($skill['icon']); ?>"></i>
                                             <?php endif; ?>
                                             <?php echo htmlspecialchars($skill['skill_name']); ?>
                                         </span>
-                                        <span class="badge bg-primary"><?php echo $skill['proficiency_level']; ?>%</span>
+                                        <span class="skill-level"><?php echo $skill['proficiency_level']; ?>%</span>
                                     </div>
                                     <div class="skill-progress">
-                                        <div class="skill-progress-bar" style="width: <?php echo $skill['proficiency_level']; ?>%"></div>
+                                        <div class="skill-progress-bar" data-width="<?php echo $skill['proficiency_level']; ?>"></div>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -433,37 +225,42 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <!-- Achievements Section -->
-    <section id="achievements" class="section-padding bg-light">
+    <section id="achievements" class="section section-alt">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Achievements</h2>
-            <div class="row">
+            <div class="section-title">
+                <h2>Achievements</h2>
+                <p>Recognition and accomplishments</p>
+            </div>
+
+            <div class="grid grid-2">
                 <?php foreach ($achievements as $achievement): ?>
-                    <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="achievement-card">
-                            <div class="d-flex align-items-start">
-                                <div class="me-3">
-                                    <i class="fas fa-trophy fa-2x text-warning"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-2"><?php echo htmlspecialchars($achievement['title']); ?></h5>
-                                    <?php if ($achievement['organization']): ?>
-                                        <h6 class="text-primary mb-2"><?php echo htmlspecialchars($achievement['organization']); ?></h6>
-                                    <?php endif; ?>
-                                    <?php if ($achievement['position']): ?>
-                                        <p class="text-success mb-2">
-                                            <i class="fas fa-medal"></i> <?php echo htmlspecialchars($achievement['position']); ?>
-                                        </p>
-                                    <?php endif; ?>
-                                    <?php if ($achievement['date_achieved']): ?>
-                                        <p class="text-muted mb-2">
-                                            <i class="fas fa-calendar"></i> <?php echo date('F Y', strtotime($achievement['date_achieved'])); ?>
-                                        </p>
-                                    <?php endif; ?>
-                                    <?php if ($achievement['description']): ?>
-                                        <p class="mb-0"><?php echo htmlspecialchars($achievement['description']); ?></p>
-                                    <?php endif; ?>
-                                </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-trophy"></i>
                             </div>
+                            <div>
+                                <h3 class="card-title"><?php echo htmlspecialchars($achievement['title']); ?></h3>
+                                <?php if ($achievement['organization']): ?>
+                                    <p style="margin: 0; color: var(--primary-color); font-weight: 600;">
+                                        <?php echo htmlspecialchars($achievement['organization']); ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <?php if ($achievement['position']): ?>
+                                <div class="achievement-position"><?php echo htmlspecialchars($achievement['position']); ?></div>
+                            <?php endif; ?>
+                            <?php if ($achievement['date_achieved']): ?>
+                                <div class="achievement-date">
+                                    <i class="fas fa-calendar"></i>
+                                    <?php echo date('F Y', strtotime($achievement['date_achieved'])); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($achievement['description']): ?>
+                                <p><?php echo htmlspecialchars($achievement['description']); ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -472,42 +269,53 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section-padding">
+    <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Projects</h2>
-            <div class="row">
+            <div class="section-title">
+                <h2>Featured Projects</h2>
+                <p>Some of the work I'm proud of</p>
+            </div>
+
+            <div class="grid grid-2">
                 <?php foreach ($projects as $project): ?>
-                    <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="project-card">
-                            <?php if ($project['featured']): ?>
-                                <div class="badge bg-warning position-absolute" style="top: 1rem; right: 1rem;">
-                                    <i class="fas fa-star"></i> Featured
-                                </div>
-                            <?php endif; ?>
-                            <h5 class="mb-3"><?php echo htmlspecialchars($project['title']); ?></h5>
-                            <?php if ($project['category']): ?>
-                                <span class="badge bg-secondary mb-3"><?php echo htmlspecialchars($project['category']); ?></span>
-                            <?php endif; ?>
-                            <?php if ($project['description']): ?>
-                                <p class="mb-3"><?php echo htmlspecialchars($project['description']); ?></p>
-                            <?php endif; ?>
-                            <?php if ($project['technologies']): ?>
-                                <p class="mb-3">
-                                    <strong>Technologies:</strong> <?php echo htmlspecialchars($project['technologies']); ?>
-                                </p>
-                            <?php endif; ?>
-                            <div class="d-flex gap-2">
-                                <?php if ($project['github_url']): ?>
-                                    <a href="<?php echo $project['github_url']; ?>" target="_blank" class="btn btn-outline-primary btn-sm">
-                                        <i class="fab fa-github"></i> Code
-                                    </a>
-                                <?php endif; ?>
-                                <?php if ($project['live_url']): ?>
-                                    <a href="<?php echo $project['live_url']; ?>" target="_blank" class="btn btn-outline-success btn-sm">
-                                        <i class="fas fa-external-link-alt"></i> Live Demo
-                                    </a>
-                                <?php endif; ?>
+                    <div class="card project-card">
+                        <?php if ($project['featured']): ?>
+                            <div class="project-featured">
+                                <i class="fas fa-star"></i> Featured
                             </div>
+                        <?php endif; ?>
+
+                        <?php if ($project['category']): ?>
+                            <div class="project-category"><?php echo htmlspecialchars($project['category']); ?></div>
+                        <?php endif; ?>
+
+                        <h3 class="project-title"><?php echo htmlspecialchars($project['title']); ?></h3>
+
+                        <?php if ($project['description']): ?>
+                            <p class="project-description"><?php echo htmlspecialchars($project['description']); ?></p>
+                        <?php endif; ?>
+
+                        <?php if ($project['technologies']): ?>
+                            <p class="project-tech">
+                                <strong>Tech Stack:</strong> <?php echo htmlspecialchars($project['technologies']); ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <div class="project-links">
+                            <?php if ($project['github_url']): ?>
+                                <a href="<?php echo htmlspecialchars($project['github_url']); ?>"
+                                    target="_blank"
+                                    class="project-link project-link-github">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
+                            <?php endif; ?>
+                            <?php if ($project['live_url']): ?>
+                                <a href="<?php echo htmlspecialchars($project['live_url']); ?>"
+                                    target="_blank"
+                                    class="project-link project-link-live">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -516,76 +324,49 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section-padding bg-primary text-white">
-        <div class="container text-center">
-            <h2 class="section-title text-white" data-aos="fade-up">Get In Touch</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-                    <p class="lead mb-4">
-                        I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology and innovation.
-                    </p>
-                    <div class="social-links mb-4">
-                        <?php foreach ($social_links as $link): ?>
-                            <a href="<?php echo $link['url']; ?>" target="_blank" title="<?php echo $link['platform']; ?>">
-                                <i class="<?php echo $link['icon']; ?>"></i>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php if ($personal_info && $personal_info['email']): ?>
-                        <a href="mailto:<?php echo $personal_info['email']; ?>" class="btn btn-light btn-lg">
-                            <i class="fas fa-envelope"></i> Send Email
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 style="color: white; margin-bottom: 1rem;">Let's Work Together</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    I'm always open to discussing new opportunities, interesting projects,
+                    or just having a chat about technology and innovation.
+                </p>
+
+                <div class="social-links" style="margin-bottom: 2rem;">
+                    <?php foreach ($social_links as $link): ?>
+                        <a href="<?php echo htmlspecialchars($link['url']); ?>"
+                            target="_blank"
+                            class="social-link"
+                            title="<?php echo htmlspecialchars($link['platform']); ?>">
+                            <i class="<?php echo htmlspecialchars($link['icon']); ?>"></i>
                         </a>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
+
+                <?php if ($personal_info && $personal_info['email']): ?>
+                    <a href="mailto:<?php echo htmlspecialchars($personal_info['email']); ?>" class="btn btn-outline">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
+    <footer class="footer">
         <div class="container">
-            <p class="mb-0">&copy; <?php echo date('Y'); ?> <?php echo $personal_info ? $personal_info['name'] : 'Arka Braja Prasad Nath'; ?>. All rights reserved.</p>
+            <p>&copy; <?php echo date('Y'); ?> <?php echo $personal_info ? htmlspecialchars($personal_info['name']) : 'Arka Braja Prasad Nath'; ?>. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Admin Button -->
-    <a href="admin/login.php" class="admin-btn">
-        <i class="fas fa-cog"></i> Admin
+    <a href="admin/login.php" class="admin-btn" title="Admin Panel">
+        <i class="fas fa-cog"></i>
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(255,255,255,0.95)';
-            } else {
-                navbar.style.background = 'rgba(255,255,255,0.95)';
-            }
-        });
-    </script>
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>

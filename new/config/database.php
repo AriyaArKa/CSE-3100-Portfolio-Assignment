@@ -2,7 +2,7 @@
 class Database
 {
     private $host = 'localhost';
-    private $db_name = 'portfolio_db';
+    private $dbName = 'portfolio_db';
     private $username = 'root';
     private $password = 'arka'; // Your MySQL password
     private $conn;
@@ -12,7 +12,7 @@ class Database
         $this->conn = null;
         try {
             $this->conn = new PDO(
-                "mysql:host=" . $this->host . ";dbname=" . $this->db_name,
+                "mysql:host=" . $this->host . ";dbname=" . $this->dbName,
                 $this->username,
                 $this->password
             );
@@ -33,7 +33,7 @@ class Database
             );
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $sql = "CREATE DATABASE IF NOT EXISTS " . $this->db_name;
+            $sql = "CREATE DATABASE IF NOT EXISTS " . $this->dbName;
             $conn->exec($sql);
             return true;
         } catch (PDOException $e) {
