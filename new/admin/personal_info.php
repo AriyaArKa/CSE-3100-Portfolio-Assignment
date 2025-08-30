@@ -57,7 +57,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Info Management - Admin Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/assets/css/admin.css/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .sidebar {
@@ -99,50 +99,50 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-3">
                 <div class="text-center text-white mb-4">
-                    <h4><i class="fas fa-user-cog"></i> Admin Panel</h4>
+                    <h4><i class="icon-user-cog"></i> Admin Panel</h4>
                 </div>
 
                 <nav class="nav flex-column">
                     <a class="nav-link" href="dashboard.php">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                        <i class="icon-tachometer-alt"></i> Dashboard
                     </a>
                     <a class="nav-link active" href="personal_info.php">
-                        <i class="fas fa-user"></i> Personal Info
+                        <i class="icon-user"></i> Personal Info
                     </a>
                     <a class="nav-link" href="education.php">
-                        <i class="fas fa-graduation-cap"></i> Education
+                        <i class="icon-graduation-cap"></i> Education
                     </a>
                     <a class="nav-link" href="skills.php">
-                        <i class="fas fa-code"></i> Skills
+                        <i class="icon-code"></i> Skills
                     </a>
                     <a class="nav-link" href="achievements.php">
-                        <i class="fas fa-trophy"></i> Achievements
+                        <i class="icon-trophy"></i> Achievements
                     </a>
                     <a class="nav-link" href="projects.php">
-                        <i class="fas fa-project-diagram"></i> Projects
+                        <i class="icon-project-diagram"></i> Projects
                     </a>
                     <a class="nav-link" href="social_links.php">
-                        <i class="fas fa-share-alt"></i> Social Links
+                        <i class="icon-share-alt"></i> Social Links
                     </a>
                     <hr class="text-white">
                     <a class="nav-link" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="icon-sign-out-alt"></i> Logout
                     </a>
                 </nav>
             </div>
 
             <!-- Main Content -->
-            <div class="col-md-10 p-4">
+            <div class="main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2><i class="fas fa-user"></i> Personal Information</h2>
+                    <h2><i class="icon-user"></i> Personal Information</h2>
                     <a href="dashboard.php" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="icon-arrow-left"></i> Back to Dashboard
                     </a>
                 </div>
 
                 <?php if (isset($success)): ?>
                     <div class="alert alert-success alert-dismissible fade show">
-                        <i class="fas fa-check"></i> <?php echo $success; ?>
+                        <i class="icon-check"></i> <?php echo $success; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
@@ -152,7 +152,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5><i class="fas fa-edit"></i> Edit Personal Information</h5>
+                                <h5><i class="icon-edit"></i> Edit Personal Information</h5>
                             </div>
                             <div class="card-body">
                                 <form method="POST">
@@ -208,7 +208,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> Save Changes
+                                        <i class="icon-save"></i> Save Changes
                                     </button>
                                 </form>
                             </div>
@@ -219,7 +219,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <h5><i class="fas fa-eye"></i> Preview</h5>
+                                <h5><i class="icon-eye"></i> Preview</h5>
                             </div>
                             <div class="card-body p-0">
                                 <div class="preview-card text-center">
@@ -230,7 +230,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <?php else: ?>
                                             <div class="profile-preview mx-auto d-flex align-items-center justify-content-center bg-light text-dark"
                                                 id="profilePreview" style="font-size: 3rem;">
-                                                <i class="fas fa-user"></i>
+                                                <i class="icon-user"></i>
                                             </div>
                                         <?php endif; ?>
                                     </div>
@@ -245,14 +245,14 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
                                     <?php if ($personal_info && $personal_info['location']): ?>
                                         <p class="mb-2" id="locationPreview">
-                                            <i class="fas fa-map-marker-alt"></i>
+                                            <i class="icon-map-marker-alt"></i>
                                             <?php echo $personal_info['location']; ?>
                                         </p>
                                     <?php endif; ?>
 
                                     <?php if ($personal_info && $personal_info['email']): ?>
                                         <p class="mb-0" id="emailPreview">
-                                            <i class="fas fa-envelope"></i>
+                                            <i class="icon-envelope"></i>
                                             <?php echo $personal_info['email']; ?>
                                         </p>
                                     <?php endif; ?>
@@ -271,20 +271,20 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
                         <div class="card mt-3">
                             <div class="card-header">
-                                <h6><i class="fas fa-info-circle"></i> Quick Tips</h6>
+                                <h6><i class="icon-info-circle"></i> Quick Tips</h6>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled mb-0">
                                     <li class="mb-2">
-                                        <i class="fas fa-lightbulb text-warning"></i>
+                                        <i class="icon-lightbulb text-warning"></i>
                                         Use a professional profile image for better impression
                                     </li>
                                     <li class="mb-2">
-                                        <i class="fas fa-lightbulb text-warning"></i>
+                                        <i class="icon-lightbulb text-warning"></i>
                                         Keep your bio concise but informative
                                     </li>
                                     <li class="mb-0">
-                                        <i class="fas fa-lightbulb text-warning"></i>
+                                        <i class="icon-lightbulb text-warning"></i>
                                         Update your information regularly
                                     </li>
                                 </ul>
@@ -296,7 +296,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/assets/css/admin.css/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function updatePreview() {
             // Update name
@@ -318,14 +318,14 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
             const location = document.getElementById('location').value;
             const locationPreview = document.getElementById('locationPreview');
             if (locationPreview) {
-                locationPreview.innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + location;
+                locationPreview.innerHTML = '<i class="icon-map-marker-alt"></i> ' + location;
             }
 
             // Update email
             const email = document.getElementById('email').value;
             const emailPreview = document.getElementById('emailPreview');
             if (emailPreview) {
-                emailPreview.innerHTML = '<i class="fas fa-envelope"></i> ' + email;
+                emailPreview.innerHTML = '<i class="icon-envelope"></i> ' + email;
             }
 
             // Update profile image
@@ -334,7 +334,7 @@ $personal_info = $stmt->fetch(PDO::FETCH_ASSOC);
             if (profileImage) {
                 profilePreview.innerHTML = '<img src="' + profileImage + '" alt="Profile Image" class="profile-preview">';
             } else {
-                profilePreview.innerHTML = '<i class="fas fa-user"></i>';
+                profilePreview.innerHTML = '<i class="icon-user"></i>';
                 profilePreview.className = 'profile-preview mx-auto d-flex align-items-center justify-content-center bg-light text-dark';
                 profilePreview.style.fontSize = '3rem';
             }

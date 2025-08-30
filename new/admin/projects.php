@@ -102,50 +102,50 @@ if (isset($_GET['edit'])) {
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-3">
                 <div class="text-center text-white mb-4">
-                    <h4><i class="fas fa-user-cog"></i> Admin Panel</h4>
+                    <h4><i class="icon-user-cog"></i> Admin Panel</h4>
                 </div>
 
                 <nav class="nav flex-column">
                     <a class="nav-link" href="dashboard.php">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                        <i class="icon-tachometer-alt"></i> Dashboard
                     </a>
                     <a class="nav-link" href="personal_info.php">
-                        <i class="fas fa-user"></i> Personal Info
+                        <i class="icon-user"></i> Personal Info
                     </a>
                     <a class="nav-link" href="education.php">
-                        <i class="fas fa-graduation-cap"></i> Education
+                        <i class="icon-graduation-cap"></i> Education
                     </a>
                     <a class="nav-link" href="skills.php">
-                        <i class="fas fa-code"></i> Skills
+                        <i class="icon-code"></i> Skills
                     </a>
                     <a class="nav-link" href="achievements.php">
-                        <i class="fas fa-trophy"></i> Achievements
+                        <i class="icon-trophy"></i> Achievements
                     </a>
                     <a class="nav-link active" href="projects.php">
-                        <i class="fas fa-project-diagram"></i> Projects
+                        <i class="icon-project-diagram"></i> Projects
                     </a>
                     <a class="nav-link" href="social_links.php">
-                        <i class="fas fa-share-alt"></i> Social Links
+                        <i class="icon-share-alt"></i> Social Links
                     </a>
                     <hr class="text-white">
                     <a class="nav-link" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="icon-sign-out-alt"></i> Logout
                     </a>
                 </nav>
             </div>
 
             <!-- Main Content -->
-            <div class="col-md-10 p-4">
+            <div class="main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2><i class="fas fa-project-diagram"></i> Projects Management</h2>
+                    <h2><i class="icon-project-diagram"></i> Projects Management</h2>
                     <a href="dashboard.php" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="icon-arrow-left"></i> Back to Dashboard
                     </a>
                 </div>
 
                 <?php if (isset($success)): ?>
                     <div class="alert alert-success alert-dismissible fade show">
-                        <i class="fas fa-check"></i> <?php echo $success; ?>
+                        <i class="icon-check"></i> <?php echo $success; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
@@ -154,7 +154,7 @@ if (isset($_GET['edit'])) {
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>
-                            <i class="fas fa-plus"></i>
+                            <i class="icon-plus"></i>
                             <?php echo $edit_record ? 'Edit Project' : 'Add New Project'; ?>
                         </h5>
                     </div>
@@ -243,12 +243,12 @@ if (isset($_GET['edit'])) {
 
                             <div class="d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i>
+                                    <i class="icon-save"></i>
                                     <?php echo $edit_record ? 'Update' : 'Add'; ?> Project
                                 </button>
                                 <?php if ($edit_record): ?>
                                     <a href="projects.php" class="btn btn-secondary">
-                                        <i class="fas fa-times"></i> Cancel
+                                        <i class="icon-times"></i> Cancel
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -259,12 +259,12 @@ if (isset($_GET['edit'])) {
                 <!-- Projects List -->
                 <div class="card">
                     <div class="card-header">
-                        <h5><i class="fas fa-list"></i> All Projects</h5>
+                        <h5><i class="icon-list"></i> All Projects</h5>
                     </div>
                     <div class="card-body">
                         <?php if (empty($projects)): ?>
                             <div class="text-center text-muted py-4">
-                                <i class="fas fa-project-diagram fa-3x mb-3"></i>
+                                <i class="icon-project-diagram fa-3x mb-3"></i>
                                 <p>No projects found. Add your first project above.</p>
                             </div>
                         <?php else: ?>
@@ -274,7 +274,7 @@ if (isset($_GET['edit'])) {
                                         <div class="card h-100">
                                             <?php if ($project['featured']): ?>
                                                 <div class="badge bg-warning position-absolute" style="top: 1rem; right: 1rem; z-index: 10;">
-                                                    <i class="fas fa-star"></i> Featured
+                                                    <i class="icon-star"></i> Featured
                                                 </div>
                                             <?php endif; ?>
 
@@ -283,11 +283,11 @@ if (isset($_GET['edit'])) {
                                                     <h6 class="card-title mb-0"><?php echo htmlspecialchars($project['title']); ?></h6>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                            <i class="fas fa-ellipsis-v"></i>
+                                                            <i class="icon-ellipsis-v"></i>
                                                         </button>
                                                         <ul class="dropdown-menu">
                                                             <li><a class="dropdown-item" href="?edit=<?php echo $project['id']; ?>">
-                                                                    <i class="fas fa-edit"></i> Edit
+                                                                    <i class="icon-edit"></i> Edit
                                                                 </a></li>
                                                             <li>
                                                                 <hr class="dropdown-divider">
@@ -298,7 +298,7 @@ if (isset($_GET['edit'])) {
                                                                     <input type="hidden" name="action" value="delete">
                                                                     <input type="hidden" name="id" value="<?php echo $project['id']; ?>">
                                                                     <button type="submit" class="dropdown-item text-danger">
-                                                                        <i class="fas fa-trash"></i> Delete
+                                                                        <i class="icon-trash"></i> Delete
                                                                     </button>
                                                                 </form>
                                                             </li>
@@ -348,7 +348,7 @@ if (isset($_GET['edit'])) {
                                                         <?php endif; ?>
                                                         <?php if ($project['live_url']): ?>
                                                             <a href="<?php echo $project['live_url']; ?>" target="_blank" class="btn btn-sm btn-outline-success">
-                                                                <i class="fas fa-external-link-alt"></i> Demo
+                                                                <i class="icon-external-link-alt"></i> Demo
                                                             </a>
                                                         <?php endif; ?>
                                                     </div>
@@ -365,7 +365,7 @@ if (isset($_GET['edit'])) {
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/assets/css/admin.css/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -73,8 +73,8 @@ $common_platforms = [
     'Behance' => 'fab fa-behance',
     'Dribbble' => 'fab fa-dribbble',
     'CodePen' => 'fab fa-codepen',
-    'Website' => 'fas fa-globe',
-    'Email' => 'fas fa-envelope'
+    'Website' => 'icon-globe',
+    'Email' => 'icon-envelope'
 ];
 ?>
 <!DOCTYPE html>
@@ -84,7 +84,7 @@ $common_platforms = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Links Management - Admin Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/assets/css/admin.css/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .sidebar {
@@ -143,50 +143,50 @@ $common_platforms = [
             <!-- Sidebar -->
             <div class="col-md-2 sidebar p-3">
                 <div class="text-center text-white mb-4">
-                    <h4><i class="fas fa-user-cog"></i> Admin Panel</h4>
+                    <h4><i class="icon-user-cog"></i> Admin Panel</h4>
                 </div>
 
                 <nav class="nav flex-column">
                     <a class="nav-link" href="dashboard.php">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                        <i class="icon-tachometer-alt"></i> Dashboard
                     </a>
                     <a class="nav-link" href="personal_info.php">
-                        <i class="fas fa-user"></i> Personal Info
+                        <i class="icon-user"></i> Personal Info
                     </a>
                     <a class="nav-link" href="education.php">
-                        <i class="fas fa-graduation-cap"></i> Education
+                        <i class="icon-graduation-cap"></i> Education
                     </a>
                     <a class="nav-link" href="skills.php">
-                        <i class="fas fa-code"></i> Skills
+                        <i class="icon-code"></i> Skills
                     </a>
                     <a class="nav-link" href="achievements.php">
-                        <i class="fas fa-trophy"></i> Achievements
+                        <i class="icon-trophy"></i> Achievements
                     </a>
                     <a class="nav-link" href="projects.php">
-                        <i class="fas fa-project-diagram"></i> Projects
+                        <i class="icon-project-diagram"></i> Projects
                     </a>
                     <a class="nav-link active" href="social_links.php">
-                        <i class="fas fa-share-alt"></i> Social Links
+                        <i class="icon-share-alt"></i> Social Links
                     </a>
                     <hr class="text-white">
                     <a class="nav-link" href="logout.php">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                        <i class="icon-sign-out-alt"></i> Logout
                     </a>
                 </nav>
             </div>
 
             <!-- Main Content -->
-            <div class="col-md-10 p-4">
+            <div class="main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2><i class="fas fa-share-alt"></i> Social Links Management</h2>
+                    <h2><i class="icon-share-alt"></i> Social Links Management</h2>
                     <a href="dashboard.php" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="icon-arrow-left"></i> Back to Dashboard
                     </a>
                 </div>
 
                 <?php if (isset($success)): ?>
                     <div class="alert alert-success alert-dismissible fade show">
-                        <i class="fas fa-check"></i> <?php echo $success; ?>
+                        <i class="icon-check"></i> <?php echo $success; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php endif; ?>
@@ -194,7 +194,7 @@ $common_platforms = [
                 <!-- Quick Platform Selection -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5><i class="fas fa-mouse-pointer"></i> Quick Platform Selection</h5>
+                        <h5><i class="icon-mouse-pointer"></i> Quick Platform Selection</h5>
                     </div>
                     <div class="card-body">
                         <div class="row g-2">
@@ -215,7 +215,7 @@ $common_platforms = [
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>
-                            <i class="fas fa-plus"></i>
+                            <i class="icon-plus"></i>
                             <?php echo $edit_record ? 'Edit Social Link' : 'Add New Social Link'; ?>
                         </h5>
                     </div>
@@ -258,19 +258,19 @@ $common_platforms = [
                             <div class="mb-3">
                                 <label class="form-label">Preview:</label>
                                 <div id="socialPreview" class="social-preview">
-                                    <i id="previewIcon" class="<?php echo $edit_record ? $edit_record['icon'] : 'fas fa-link'; ?>"></i>
+                                    <i id="previewIcon" class="<?php echo $edit_record ? $edit_record['icon'] : 'icon-link'; ?>"></i>
                                     <span id="previewText"><?php echo $edit_record ? $edit_record['platform'] : 'Platform Name'; ?></span>
                                 </div>
                             </div>
 
                             <div class="d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i>
+                                    <i class="icon-save"></i>
                                     <?php echo $edit_record ? 'Update' : 'Add'; ?> Social Link
                                 </button>
                                 <?php if ($edit_record): ?>
                                     <a href="social_links.php" class="btn btn-secondary">
-                                        <i class="fas fa-times"></i> Cancel
+                                        <i class="icon-times"></i> Cancel
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -281,12 +281,12 @@ $common_platforms = [
                 <!-- Social Links List -->
                 <div class="card">
                     <div class="card-header">
-                        <h5><i class="fas fa-list"></i> Current Social Links</h5>
+                        <h5><i class="icon-list"></i> Current Social Links</h5>
                     </div>
                     <div class="card-body">
                         <?php if (empty($social_links)): ?>
                             <div class="text-center text-muted py-4">
-                                <i class="fas fa-share-alt fa-3x mb-3"></i>
+                                <i class="icon-share-alt fa-3x mb-3"></i>
                                 <p>No social links found. Add your first social link above.</p>
                             </div>
                         <?php else: ?>
@@ -313,17 +313,17 @@ $common_platforms = [
                                                     </div>
                                                     <div class="d-flex gap-1">
                                                         <a href="<?php echo $link['url']; ?>" target="_blank" class="btn btn-sm btn-info">
-                                                            <i class="fas fa-external-link-alt"></i>
+                                                            <i class="icon-external-link-alt"></i>
                                                         </a>
                                                         <a href="?edit=<?php echo $link['id']; ?>" class="btn btn-sm btn-warning">
-                                                            <i class="fas fa-edit"></i>
+                                                            <i class="icon-edit"></i>
                                                         </a>
                                                         <form method="POST" style="display: inline;"
                                                             onsubmit="return confirm('Are you sure you want to delete this social link?')">
                                                             <input type="hidden" name="action" value="delete">
                                                             <input type="hidden" name="id" value="<?php echo $link['id']; ?>">
                                                             <button type="submit" class="btn btn-sm btn-danger">
-                                                                <i class="fas fa-trash"></i>
+                                                                <i class="icon-trash"></i>
                                                             </button>
                                                         </form>
                                                     </div>
@@ -340,7 +340,7 @@ $common_platforms = [
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/assets/css/admin.css/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function selectPlatform(platform, icon) {
             document.getElementById('platform').value = platform;
@@ -356,7 +356,7 @@ $common_platforms = [
 
         function updatePreview() {
             const platform = document.getElementById('platform').value || 'Platform Name';
-            const icon = document.getElementById('icon').value || 'fas fa-link';
+            const icon = document.getElementById('icon').value || 'icon-link';
 
             document.getElementById('previewText').textContent = platform;
             document.getElementById('previewIcon').className = icon;

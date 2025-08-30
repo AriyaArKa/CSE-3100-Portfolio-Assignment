@@ -60,9 +60,6 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
     <!-- Custom Styles -->
     <link href="assets/css/style.css" rel="stylesheet">
 
@@ -95,10 +92,10 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div style="display: flex; align-items: center;">
                 <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">
-                    <i class="fas fa-moon"></i>
+                    <i class="icon-moon"></i>
                 </button>
                 <button class="nav-toggle" id="nav-toggle">
-                    <i class="fas fa-bars"></i>
+                    <i class="icon-bars"></i>
                 </button>
             </div>
         </div>
@@ -132,10 +129,10 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="hero-actions">
                     <a href="#contact" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i> Get In Touch
+                        <i class="icon-envelope"></i> Get In Touch
                     </a>
                     <a href="#projects" class="btn btn-outline">
-                        <i class="fas fa-eye"></i> View Work
+                        <i class="icon-eye"></i> View Work
                     </a>
                 </div>
             </div>
@@ -154,13 +151,13 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($education as $index => $edu): ?>
                     <div class="education-item" style="animation-delay: <?php echo $index * 0.2; ?>s">
                         <div class="education-icon">
-                            <i class="fas fa-graduation-cap"></i>
+                            <i class="icon-graduation-cap"></i>
                         </div>
                         <div class="education-content">
                             <h3 class="education-degree"><?php echo htmlspecialchars($edu['degree']); ?></h3>
                             <h4 class="education-institution"><?php echo htmlspecialchars($edu['institution']); ?></h4>
                             <div class="education-duration">
-                                <i class="fas fa-calendar"></i>
+                                <i class="icon-calendar"></i>
                                 <?php echo htmlspecialchars($edu['duration']); ?>
                                 <?php if ($edu['is_current']): ?>
                                     <span class="education-gpa">Current</span>
@@ -195,7 +192,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php if (!empty($skills[0]['category_icon'])): ?>
                                     <i class="<?php echo htmlspecialchars($skills[0]['category_icon']); ?>"></i>
                                 <?php else: ?>
-                                    <i class="fas fa-code"></i>
+                                    <i class="icon-code"></i>
                                 <?php endif; ?>
                             </div>
                             <h3 class="card-title"><?php echo htmlspecialchars($category); ?></h3>
@@ -237,7 +234,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">
-                                <i class="fas fa-trophy"></i>
+                                <i class="icon-trophy"></i>
                             </div>
                             <div>
                                 <h3 class="card-title"><?php echo htmlspecialchars($achievement['title']); ?></h3>
@@ -254,7 +251,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php endif; ?>
                             <?php if ($achievement['date_achieved']): ?>
                                 <div class="achievement-date">
-                                    <i class="fas fa-calendar"></i>
+                                    <i class="icon-calendar"></i>
                                     <?php echo date('F Y', strtotime($achievement['date_achieved'])); ?>
                                 </div>
                             <?php endif; ?>
@@ -281,7 +278,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="card project-card">
                         <?php if ($project['featured']): ?>
                             <div class="project-featured">
-                                <i class="fas fa-star"></i> Featured
+                                <i class="icon-star"></i> Featured
                             </div>
                         <?php endif; ?>
 
@@ -306,14 +303,14 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <a href="<?php echo htmlspecialchars($project['github_url']); ?>"
                                     target="_blank"
                                     class="project-link project-link-github">
-                                    <i class="fab fa-github"></i> Code
+                                    <i class="icon-github"></i> Code
                                 </a>
                             <?php endif; ?>
                             <?php if ($project['live_url']): ?>
                                 <a href="<?php echo htmlspecialchars($project['live_url']); ?>"
                                     target="_blank"
                                     class="project-link project-link-live">
-                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                    <i class="icon-external-link"></i> Live Demo
                                 </a>
                             <?php endif; ?>
                         </div>
@@ -346,7 +343,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <?php if ($personal_info && $personal_info['email']): ?>
                     <a href="mailto:<?php echo htmlspecialchars($personal_info['email']); ?>" class="btn btn-outline">
-                        <i class="fas fa-envelope"></i> Send Email
+                        <i class="icon-envelope"></i> Send Email
                     </a>
                 <?php endif; ?>
             </div>
@@ -362,7 +359,7 @@ $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Admin Button -->
     <a href="admin/login.php" class="admin-btn" title="Admin Panel">
-        <i class="fas fa-cog"></i>
+        <i class="icon-cog"></i>
     </a>
 
     <!-- JavaScript -->

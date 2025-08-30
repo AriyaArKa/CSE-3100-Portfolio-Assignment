@@ -5,6 +5,114 @@
 /* Import Professional Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/* Icon Replacements - Unicode Symbols */
+.icon-moon::before {
+  content: "🌙";
+}
+.icon-sun::before {
+  content: "☀️";
+}
+.icon-bars::before {
+  content: "☰";
+}
+.icon-envelope::before {
+  content: "✉️";
+}
+.icon-eye::before {
+  content: "👁️";
+}
+.icon-graduation-cap::before {
+  content: "🎓";
+}
+.icon-calendar::before {
+  content: "📅";
+}
+.icon-code::before {
+  content: "💻";
+}
+.icon-trophy::before {
+  content: "🏆";
+}
+.icon-star::before {
+  content: "⭐";
+}
+.icon-github::before {
+  content: "🔗";
+}
+.icon-external-link::before {
+  content: "🌐";
+}
+.icon-cog::before {
+  content: "⚙️";
+}
+
+/* Font Awesome class replacements */
+.fas.fa-moon::before {
+  content: "🌙";
+}
+.fas.fa-sun::before {
+  content: "☀️";
+}
+.fas.fa-bars::before {
+  content: "☰";
+}
+.fas.fa-envelope::before {
+  content: "✉️";
+}
+.fas.fa-eye::before {
+  content: "👁️";
+}
+.fas.fa-graduation-cap::before {
+  content: "🎓";
+}
+.fas.fa-calendar::before {
+  content: "📅";
+}
+.fas.fa-code::before {
+  content: "💻";
+}
+.fas.fa-trophy::before {
+  content: "🏆";
+}
+.fas.fa-star::before {
+  content: "⭐";
+}
+.fab.fa-github::before {
+  content: "🔗";
+}
+.fas.fa-external-link-alt::before {
+  content: "🌐";
+}
+.fas.fa-cog::before {
+  content: "⚙️";
+}
+
+/* Social Media Icons */
+.fab.fa-linkedin::before {
+  content: "💼";
+}
+.fab.fa-twitter::before {
+  content: "🐦";
+}
+.fab.fa-instagram::before {
+  content: "📷";
+}
+.fab.fa-facebook::before {
+  content: "📘";
+}
+.fab.fa-youtube::before {
+  content: "📺";
+}
+.fab.fa-telegram::before {
+  content: "💌";
+}
+.fab.fa-whatsapp::before {
+  content: "💬";
+}
+.fab.fa-discord::before {
+  content: "🎮";
+}
+
 /* CSS Custom Properties for Theme Management */
 :root {
   /* Professional Color Palette */
