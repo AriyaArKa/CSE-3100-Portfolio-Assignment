@@ -1,0 +1,584 @@
+/* ===== HARRY POTTER THEMED DARK GRADIENT PORTFOLIO ===== */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #f4f1ea;
+  font-family: "Cinzel", serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ===== MAGICAL TYPOGRAPHY ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Uncial Antiqua", cursive;
+  color: #d4af37;
+  text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.3),
+    0 0 20px rgba(212, 175, 55, 0.2);
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+p,
+li {
+  font-family: "Cinzel", serif;
+  color: #e8e3d3;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.5px;
+}
+
+/* ===== MAGICAL NAVIGATION BAR ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 100vw;
+  padding: 0;
+  background: transparent;
+}
+
+.nav-container {
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 15, 0.9) 0%,
+    rgba(25, 20, 35, 0.9) 50%,
+    rgba(10, 10, 15, 0.9) 100%
+  );
+  border-radius: 50px;
+  padding: 16px 32px;
+  margin: 16px auto;
+  max-width: 900px;
+  min-width: 320px;
+  backdrop-filter: blur(15px) brightness(1.1);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 24px;
+}
+
+.nav-link {
+  color: #d4af37;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 10px 18px;
+  border-radius: 25px;
+  transition: all 0.4s ease;
+  position: relative;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.2),
+    rgba(139, 69, 19, 0.2)
+  );
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+/* ===== MAGICAL SCROLLING SECTIONS ===== */
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(
+    to bottom,
+    #1a1a3a 0%,
+    #2a2a4a 25%,
+    #3a3a5a 50%,
+    #2a2a4a 75%,
+    #1a1a3a 100%
+  );
+  position: relative;
+  overflow: hidden;
+  margin-top: 80px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(212, 175, 55, 0.1) 0 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(255, 255, 255, 0.2) 0 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(212, 175, 55, 0.08) 0 1px,
+      transparent 1px
+    );
+  background-size: 300px 300px, 500px 500px, 400px 400px;
+  animation: twinkle 8s linear infinite;
+  pointer-events: none;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  color: #d4af37;
+  text-shadow: 3px 3px 10px rgba(212, 175, 55, 0.5),
+    0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.hero p {
+  font-size: 1.5rem;
+  color: #e8e3d3;
+  max-width: 600px;
+}
+
+/* Village Section */
+.bg_village {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #3a3a5a 0%, #4a4a6a 100%);
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.bg_village img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: bottom;
+  filter: drop-shadow(0 -5px 15px rgba(212, 175, 55, 0.2));
+}
+
+/* About Me Section */
+.about-content {
+  padding: 80px 5%;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #1a1a3a 0%,
+    #2a2a4a 25%,
+    #3a3a5a 50%,
+    #2a2a4a 75%,
+    #1a1a3a 100%
+  );
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 10% 20%,
+      rgba(212, 175, 55, 0.05) 0 3px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(139, 69, 19, 0.08) 0 2px,
+      transparent 2px
+    );
+  background-size: 600px 600px, 800px 800px;
+  pointer-events: none;
+}
+
+.about-content h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.about-content p {
+  font-size: 1.3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+}
+
+/* Train Section */
+.bg_train {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #4a4a6a 0%, #3a3a5a 100%);
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.bg_train img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: bottom;
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.2));
+}
+
+/* Projects Section */
+.projects {
+  padding: 80px 5%;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #1a1a3a 0%,
+    #2a2a4a 25%,
+    #3a3a5a 50%,
+    #2a2a4a 75%,
+    #1a1a3a 100%
+  );
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.projects h2 {
+  color: #d4af37;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+}
+
+.projects ul {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.projects li {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  font-size: 1.2rem;
+}
+
+/* Bridge Section */
+.bg_bridge {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #4a4a6a 0%, #3a3a5a 100%);
+  display: flex;
+  align-items: flex-end;
+}
+
+.bg_bridge img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: bottom;
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
+}
+
+/* Skills Section */
+.skill {
+  padding: 80px 5%;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #1a1a3a 0%,
+    #2a2a4a 25%,
+    #3a3a5a 50%,
+    #2a2a4a 75%,
+    #1a1a3a 100%
+  );
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.skill h2 {
+  color: #d4af37;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+}
+
+.skill ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.skill li {
+  background: rgba(212, 175, 55, 0.1);
+  padding: 15px 25px;
+  border-radius: 25px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.skill li:hover {
+  background: rgba(212, 175, 55, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Quidditch Section */
+.bg_4 {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #4a4a6a 0%, #3a3a5a 100%);
+  display: flex;
+  align-items: flex-end;
+}
+
+.bg_4 img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: bottom;
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
+}
+
+/* Achievements Section */
+.achievements {
+  padding: 80px 5%;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #1a1a3a 0%,
+    #2a2a4a 25%,
+    #3a3a5a 50%,
+    #2a2a4a 75%,
+    #1a1a3a 100%
+  );
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.achievements h2 {
+  color: #d4af37;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+}
+
+.achievements ul {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.achievements li {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  font-size: 1.2rem;
+}
+
+/* Hogwarts Section */
+.bg_5 {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #4a4a6a 0%, #3a3a5a 100%);
+  display: flex;
+  align-items: flex-end;
+}
+
+.bg_5 img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: bottom;
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
+}
+
+/* Contact Section */
+.contact {
+  padding: 80px 5%;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #1a1a3a 0%,
+    #2a2a4a 25%,
+    #3a3a5a 50%,
+    #2a2a4a 75%,
+    #1a1a3a 100%
+  );
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact h2 {
+  color: #d4af37;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+}
+
+.contact p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Burrow Section */
+.bg_6 {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #4a4a6a 0%, #3a3a5a 100%);
+  display: flex;
+  align-items: flex-end;
+}
+
+.bg_6 img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: bottom;
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
+}
+
+/* ===== MAGICAL ANIMATIONS ===== */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ===== RESPONSIVE MAGIC ===== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .nav-container {
+    padding: 12px 16px;
+    margin: 12px;
+  }
+
+  .nav-menu {
+    gap: 12px;
+  }
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    font-size: 2.2rem !important;
+  }
+  p {
+    font-size: 1.1rem;
+  }
+
+  .bg_village,
+  .bg_train,
+  .bg_bridge,
+  .bg_4,
+  .bg_5,
+  .bg_6 {
+    height: 150px;
+  }
+
+  .bg_village img,
+  .bg_train img,
+  .bg_bridge img,
+  .bg_4 img,
+  .bg_5 img,
+  .bg_6 img {
+    height: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    margin-top: 60px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
+
+/* ===== MAGICAL SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #d4af37, #8b4513);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #e6c547, #a0522d);
+}
