@@ -7,9 +7,9 @@ function requireLogin()
     }
 }
 
-function getAdminNavigation($current_page = '')
+function getAdminNavigation($currentPage = '')
 {
-    $nav_items = [
+    $navItems = [
         'dashboard.php' => ['title' => 'Dashboard', 'icon' => 'fas fa-tachometer-alt'],
         'projects.php' => ['title' => 'Projects', 'icon' => 'fas fa-project-diagram'],
         'skills.php' => ['title' => 'Skills', 'icon' => 'fas fa-code'],
@@ -25,8 +25,8 @@ function getAdminNavigation($current_page = '')
                 </div>
                 <ul class="sidebar-menu">';
 
-    foreach ($nav_items as $page => $item) {
-        $active = ($current_page === $page) ? ' class="active"' : '';
+    foreach ($navItems as $page => $item) {
+        $active = ($currentPage === $page) ? ' class="active"' : '';
         $html .= '<li><a href="' . $page . '"' . $active . '>
                     <i class="' . $item['icon'] . '"></i>
                     <span>' . $item['title'] . '</span>
@@ -38,13 +38,13 @@ function getAdminNavigation($current_page = '')
     return $html;
 }
 
-function getAdminHeader($title = 'Admin Panel')
+function getAdminHeader($title = 'Admin Panel', $adminUsername = '')
 {
     return '
     <header class="admin-header">
         <div class="container">
             <h1>' . htmlspecialchars($title) . '</h1>
-            <p>Welcome, ' . htmlspecialchars($_SESSION['admin_username']) . '</p>
+            <p>Welcome, ' . htmlspecialchars($adminUsername) . '</p>
         </div>
     </header>';
 }
