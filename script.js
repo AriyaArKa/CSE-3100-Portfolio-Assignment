@@ -215,10 +215,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const hero = document.querySelector(".hero");
     const scrolled = window.pageYOffset;
     const rate = scrolled * -0.5;
-
-    if (hero) {
-      hero.style.transform = `translateY(${rate}px)`;
-    }
   });
 
   // Add loading animation

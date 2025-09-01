@@ -10,23 +10,30 @@ function requireLogin()
 function getAdminNavigation($current_page = '')
 {
     $nav_items = [
-        'dashboard.php' => 'Dashboard',
-        'projects.php' => 'Projects',
-        'skills.php' => 'Skills',
-        'achievements.php' => 'Achievements',
-        'testimonials.php' => 'Testimonials',
-        'messages.php' => 'Messages',
-        'logout.php' => 'Logout'
+        'dashboard.php' => ['title' => 'Dashboard', 'icon' => 'fas fa-tachometer-alt'],
+        'projects.php' => ['title' => 'Projects', 'icon' => 'fas fa-project-diagram'],
+        'skills.php' => ['title' => 'Skills', 'icon' => 'fas fa-code'],
+        'achievements.php' => ['title' => 'Achievements', 'icon' => 'fas fa-trophy'],
+        'testimonials.php' => ['title' => 'Testimonials', 'icon' => 'fas fa-quote-right'],
+        'messages.php' => ['title' => 'Messages', 'icon' => 'fas fa-envelope'],
+        'logout.php' => ['title' => 'Logout', 'icon' => 'fas fa-sign-out-alt']
     ];
 
-    $html = '<nav class="admin-nav"><div class="container"><ul>';
+    $html = '<nav class="admin-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-user-shield"></i> Admin Panel</h3>
+                </div>
+                <ul class="sidebar-menu">';
 
-    foreach ($nav_items as $page => $title) {
+    foreach ($nav_items as $page => $item) {
         $active = ($current_page === $page) ? ' class="active"' : '';
-        $html .= '<li><a href="' . $page . '"' . $active . '>' . $title . '</a></li>';
+        $html .= '<li><a href="' . $page . '"' . $active . '>
+                    <i class="' . $item['icon'] . '"></i>
+                    <span>' . $item['title'] . '</span>
+                  </a></li>';
     }
 
-    $html .= '</ul></div></nav>';
+    $html .= '</ul></nav>';
 
     return $html;
 }
