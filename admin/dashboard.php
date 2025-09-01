@@ -30,6 +30,7 @@ $recent_messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Admin Dashboard - Portfolio</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../dashboard.css">
 </head>
 
 <body>
@@ -146,29 +147,7 @@ $recent_messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
 
-        <style>
-            .badge {
-                padding: 0.3rem 0.6rem;
-                border-radius: 15px;
-                font-size: 0.8rem;
-                font-weight: bold;
-            }
-
-            .badge-warning {
-                background: #ffc107;
-                color: #212529;
-            }
-
-            .badge-success {
-                background: #28a745;
-                color: white;
-            }
-
-            .btn-sm {
-                padding: 0.3rem 0.8rem;
-                font-size: 0.8rem;
-            }
-        </style>
+        
 
         <script src="../script.js"></script>
 </body>

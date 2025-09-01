@@ -84,6 +84,7 @@ $testimonials = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Manage Testimonials - Admin</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../testimonials.css">
 </head>
 
 <body>
@@ -253,38 +254,7 @@ $testimonials = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <style>
-        .badge {
-            padding: 0.3rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
 
-        .badge-success {
-            background: #28a745;
-            color: white;
-        }
-
-        .badge-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-sm {
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-    </style>
 
     <script src="../script.js"></script>
 </body>

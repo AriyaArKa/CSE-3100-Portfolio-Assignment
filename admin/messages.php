@@ -82,6 +82,7 @@ $read_messages = $pdo->query("SELECT COUNT(*) FROM messages WHERE status = 'read
     <title>Manage Messages - Admin</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../messages.css">
 </head>
 
 <body>
@@ -233,46 +234,7 @@ $read_messages = $pdo->query("SELECT COUNT(*) FROM messages WHERE status = 'read
         </div>
     </div>
 
-    <style>
-        .badge {
-            padding: 0.3rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .badge-success {
-            background: #28a745;
-            color: white;
-        }
-
-        .badge-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-
-        .btn-sm {
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .message-card {
-            transition: transform 0.2s ease;
-        }
-
-        .message-card:hover {
-            transform: translateY(-2px);
-        }
-    </style>
+    
 
     <script src="../script.js"></script>
 </body>
