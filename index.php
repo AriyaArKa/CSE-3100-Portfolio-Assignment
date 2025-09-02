@@ -71,6 +71,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                     <li><a href="#projects" class="nav-link">Projects</a></li>
                     <li><a href="#skills" class="nav-link">Skills</a></li>
                     <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                    <li><a href="#extracurricular" class="nav-link">Activities</a></li>
                     <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                     <li><a href="#education" class="nav-link">Education</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -203,57 +204,31 @@ if ($_POST && isset($_POST['contact_submit'])) {
                     </div>
                 <?php endforeach; ?>
             </div>
+        </div>
+    </section>
 
-            <!-- Extracurricular Activities -->
-            <div class="extracurricular">
-                <h3>Extracurricular Activities</h3>
-                <div class="activities-grid">
-                    <div class="activity-card">
-                        <h4>Senior Executive</h4>
-                        <p>KUET Business & Entrepreneurship Club (KBEC)</p>
-                    </div>
-                    <div class="activity-card">
-                        <h4>Sub Autonomous-Trainee</h4>
-                        <p>Team DURBAR (Mars Rover project)</p>
-                    </div>
-                    <div class="activity-card">
-                        <h4>Design Member</h4>
-                        <p>Bit to Byte (R&D Community)</p>
-                    </div>
+    <!-- Extracurricular Activities Section -->
+    <section id="extracurricular" class="extracurricular-section">
+        <div class="container">
+            <h2 class="section-title">Extracurricular Activities</h2>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <h4>Senior Executive</h4>
+                    <p>KUET Business & Entrepreneurship Club (KBEC)</p>
+                </div>
+                <div class="activity-card">
+                    <h4>Sub Autonomous-Trainee</h4>
+                    <p>Team DURBAR (Mars Rover project)</p>
+                </div>
+                <div class="activity-card">
+                    <h4>Design Member</h4>
+                    <p>Bit to Byte (R&D Community)</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Testimonials</h2>
-            <div class="testimonials-slider">
-                <?php foreach ($testimonials as $testimonial): ?>
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <div class="stars">
-                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <i class="fas fa-star<?php echo $i <= $testimonial['rating'] ? '' : '-empty'; ?>"></i>
-                                <?php endfor; ?>
-                            </div>
-                            <p>"<?php echo htmlspecialchars($testimonial['message']); ?>"</p>
-                            <div class="testimonial-author">
-                                <div class="author-image">
-                                    <img src="<?php echo $testimonial['image'] ?: 'https://via.placeholder.com/80x80/4a90e2/ffffff?text=' . substr($testimonial['name'], 0, 1); ?>" alt="<?php echo htmlspecialchars($testimonial['name']); ?>">
-                                </div>
-                                <div class="author-info">
-                                    <h4><?php echo htmlspecialchars($testimonial['name']); ?></h4>
-                                    <p><?php echo htmlspecialchars($testimonial['position']); ?><?php echo $testimonial['company'] ? ' at ' . htmlspecialchars($testimonial['company']) : ''; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Education Section -->
     <section id="education" class="education-section">
@@ -289,46 +264,96 @@ if ($_POST && isset($_POST['contact_submit'])) {
             </div>
         </div>
     </section>
-
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Testimonials</h2>
+            <div class="testimonials-slider">
+                <?php foreach ($testimonials as $testimonial): ?>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <i class="fas fa-star<?php echo $i <= $testimonial['rating'] ? '' : '-empty'; ?>"></i>
+                                <?php endfor; ?>
+                            </div>
+                            <p>"<?php echo htmlspecialchars($testimonial['message']); ?>"</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <img src="<?php echo $testimonial['image'] ?: 'https://via.placeholder.com/80x80/4a90e2/ffffff?text=' . substr($testimonial['name'], 0, 1); ?>" alt="<?php echo htmlspecialchars($testimonial['name']); ?>">
+                                </div>
+                                <div class="author-info">
+                                    <h4><?php echo htmlspecialchars($testimonial['name']); ?></h4>
+                                    <p><?php echo htmlspecialchars($testimonial['position']); ?><?php echo $testimonial['company'] ? ' at ' . htmlspecialchars($testimonial['company']) : ''; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i>
+                Send Me an Owl
+            </h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always interested in new opportunities and collaborations. Feel free to reach out!</p>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>arka.nath@example.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+880 1234 567890</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Khulna, Bangladesh</span>
+                    <h2 class="magical-title">Get in Touch</h2>
+                    <p class="magical-subtitle">Ready to embark on a magical coding journey together? Send me a message!</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>YOUR.EMAIL@HOGWARTS.EDU</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LINKEDIN.COM/IN/YOURNAME</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span>GITHUB.COM/YOURNAME</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-form">
+
+                <div class="contact-form-container">
                     <?php if (isset($success_message)): ?>
                         <div class="alert alert-success"><?php echo $success_message; ?></div>
                     <?php endif; ?>
                     <?php if (isset($error_message)): ?>
                         <div class="alert alert-error"><?php echo $error_message; ?></div>
                     <?php endif; ?>
-                    <form method="POST" action="#contact">
+
+                    <form method="POST" action="#contact" class="magical-form">
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="text" name="name" placeholder="YOUR NAME" required>
+                            <i class="fas fa-user form-icon"></i>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required>
+                            <input type="email" name="email" placeholder="YOUR EMAIL" required>
+                            <i class="fas fa-envelope form-icon"></i>
                         </div>
                         <div class="form-group">
-                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                            <input type="text" name="subject" placeholder="SUBJECT" required>
+                            <i class="fas fa-tag form-icon"></i>
                         </div>
-                        <button type="submit" name="contact_submit" class="submit-btn">Send Message</button>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="YOUR MESSAGE" rows="6" required></textarea>
+                            <i class="fas fa-comment form-icon"></i>
+                        </div>
+                        <button type="submit" name="contact_submit" class="magical-submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            SEND OWL
+                        </button>
                     </form>
                 </div>
             </div>

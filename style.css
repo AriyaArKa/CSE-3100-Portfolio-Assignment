@@ -117,7 +117,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 200px;
+  height: 120px;
   width: 100%;
   background: url("./images/horizons_village.png") center bottom no-repeat;
   background-size: cover;
@@ -254,9 +254,9 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 200px;
+  height: 120px;
   width: 100%;
-  background: url("./images/horizons_village.png") center bottom no-repeat;
+  background: url("./images/horizons_train.png") center bottom no-repeat;
   background-size: cover;
   pointer-events: none;
   z-index: 1;
@@ -305,7 +305,7 @@ section {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, #120b0e 0%, #352e5c 50%, #352e5c 100%);
+  background: linear-gradient(to bottom, #0f0f11 0%, #352e5c 50%, #352e5c 100%);
   color: white;
   padding-top: 80px;
   position: relative;
@@ -317,9 +317,9 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 200px;
+  height: 120px;
   width: 100%;
-  background: url("./images/horizons_village.png") center bottom no-repeat;
+  background: url("./images/horizons_hogwarts.png") center bottom no-repeat;
   background-size: cover;
   pointer-events: none;
   z-index: 1;
@@ -419,6 +419,30 @@ section {
 }
 
 /* Projects Section */
+.projects {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #120b0e 0%, #352e5c 50%, #352e5c 100%);
+  color: white;
+  padding-top: 80px;
+  position: relative;
+}
+
+.projects::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 110px;
+  width: 100%;
+  background: url("./images/horizons_bridge.png") center bottom no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -507,7 +531,7 @@ section {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, #120b0e 0%, #352e5c 50%, #352e5c 100%);
+  background: linear-gradient(to bottom, #0f0f11 0%, #352e5c 50%, #352e5c 100%);
   color: white;
   padding-top: 80px;
   position: relative;
@@ -521,7 +545,7 @@ section {
   bottom: 0;
   height: 120px;
   width: 100%;
-  background: url("./images/horizons_village.png") center bottom no-repeat;
+  background: url("./images/horizons_hogwarts.png") center bottom no-repeat;
   background-size: cover;
   pointer-events: none;
   z-index: 1;
@@ -582,6 +606,28 @@ section {
 }
 
 /* Achievements Section */
+.achievements {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #18150d 0%, #352e5c 50%, #352e5c 100%);
+  color: white;
+  padding-top: 80px;
+  position: relative;
+}
+.achievements::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  width: 100%;
+  background: url("./images/horizons_quidditch.png") center bottom no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+}
 .achievements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -626,35 +672,67 @@ section {
   font-size: 0.9rem;
 }
 
-.extracurricular {
-  background: #f8f9fa;
-  padding: 3rem;
-  border-radius: 15px;
+/* Extracurricular Activities Section */
+.extracurricular-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #0e0812 0%, #352e5c 50%, #352e5c 100%);
+  color: white;
+  padding-top: 80px;
+  position: relative;
 }
 
-.extracurricular h3 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
+.extracurricular-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  width: 100%;
+  background: url("./images/horizons_bridge.png") center bottom no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .activities-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .activity-card {
   background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 15px;
   text-align: center;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.activity-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .activity-card h4 {
   color: #4a90e2;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.activity-card p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Testimonials Section */
@@ -662,7 +740,7 @@ section {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, #120b0e 0%, #352e5c 50%, #352e5c 100%);
+  background: linear-gradient(to bottom, #18150d 0%, #352e5c 50%, #352e5c 100%);
   color: white;
   padding-top: 80px;
   position: relative;
@@ -674,7 +752,7 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 200px;
+  height: 120px;
   width: 100%;
   background: url("./images/horizons_village.png") center bottom no-repeat;
   background-size: cover;
@@ -746,114 +824,275 @@ section {
 }
 
 /* Contact Section */
+.contact {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #120b0e 0%, #352e5c 50%, #352e5c 100%);
+  color: white;
+  padding-top: 80px;
+  position: relative;
+}
+
+.contact::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 150px;
+  width: 100%;
+  background: url("./images/horizons_burrow.png") center bottom no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .contact-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: start;
+  align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
-.contact-info h3 {
-  margin-bottom: 1rem;
-  color: #333;
+/* Left Side - Contact Info */
+.contact-info {
+  color: white;
 }
 
-.contact-info p {
-  margin-bottom: 2rem;
-  color: #666;
+.magical-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #d4af37;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.magical-subtitle {
+  font-size: 1.2rem;
   line-height: 1.6;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.9rem;
+  background: rgba(52, 73, 94, 0.6);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+.contact-item:hover {
+  background: rgba(52, 73, 94, 0.8);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateX(5px);
 }
 
 .contact-item i {
-  color: #4a90e2;
-  font-size: 1.2rem;
-  width: 20px;
+  color: #d4af37;
+  font-size: 1rem;
+  width: 18px;
+  text-align: center;
 }
 
-.contact-form {
-  background: #f8f9fa;
+.contact-item span {
+  color: #ecf0f1;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  font-size: 0.9rem;
+}
+
+/* Right Side - Contact Form */
+.contact-form-container {
+  background: rgba(44, 62, 80, 0.9);
   padding: 2rem;
-  border-radius: 15px;
+  border-radius: 20px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #4a90e2;
-}
-
-.submit-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
+.form-title {
+  text-align: center;
+  color: #d4af37;
+  font-size: 2rem;
   font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.submit-btn:hover {
-  transform: translateY(-2px);
+.form-title i {
+  color: #f39c12;
+}
+
+.magical-form .form-group {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.magical-form input,
+.magical-form textarea {
+  width: 100%;
+  padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+  background: rgba(52, 73, 94, 0.7);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  color: #ecf0f1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.magical-form input::placeholder,
+.magical-form textarea::placeholder {
+  color: #95a5a6;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.magical-form input:focus,
+.magical-form textarea:focus {
+  outline: none;
+  border-color: #d4af37;
+  background: rgba(52, 73, 94, 0.9);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.form-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d4af37;
+  font-size: 1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.magical-form textarea + .form-icon {
+  top: 1.2rem;
+  transform: none;
+}
+
+.magical-submit-btn {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  background: linear-gradient(135deg, #d4af37 0%, #f39c12 100%);
+  color: #2c3e50;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.magical-submit-btn:hover {
+  background: linear-gradient(135deg, #f39c12 0%, #d4af37 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+.magical-submit-btn:active {
+  transform: translateY(-1px);
 }
 
 .alert {
   padding: 1rem;
   border-radius: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid;
 }
 
 .alert-success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: rgba(39, 174, 96, 0.2);
+  color: #2ecc71;
+  border-color: #2ecc71;
 }
 
 .alert-error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* Responsive Design for Contact Section */
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 1rem;
+  }
+
+  .magical-title {
+    font-size: 2.5rem;
+  }
+
+  .contact-form-container {
+    padding: 2rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+  }
 }
 
 /* Footer */
 .footer {
-  background: #333;
+  background: #15111c;
   color: white;
-  padding: 2rem 0;
-  text-align: center;
+  padding: 1rem 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-content p {
+  margin: 0;
+  color: white;
 }
 
 .footer-links {
-  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
 }
 
 .footer-links a {
   color: white;
   font-size: 1.5rem;
-  margin: 0 1rem;
   transition: color 0.3s ease;
 }
 
@@ -1181,6 +1420,16 @@ section {
   .admin-table th,
   .admin-table td {
     padding: 0.5rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
   }
 }
 
