@@ -2,19 +2,19 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Mobile menu toggle
   const hamburger = document.querySelector(".hamburger");
-  const navMenu = document.querySelector(".nav-menu");
+  const navMenuWrapper = document.querySelector(".nav-menu-wrapper");
 
-  if (hamburger && navMenu) {
+  if (hamburger && navMenuWrapper) {
     hamburger.addEventListener("click", function () {
       hamburger.classList.toggle("active");
-      navMenu.classList.toggle("active");
+      navMenuWrapper.classList.toggle("active");
     });
 
     // Close mobile menu when clicking on a link
     document.querySelectorAll(".nav-link").forEach((link) => {
       link.addEventListener("click", function () {
         hamburger.classList.remove("active");
-        navMenu.classList.remove("active");
+        navMenuWrapper.classList.remove("active");
       });
     });
   }
@@ -181,10 +181,10 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(nextTestimonial, 5000);
   }
 
-  // Header background on scroll
+  // Header background on scroll - Enhanced for centered navbar
   const header = document.querySelector(".header");
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
+    if (window.scrollY > 50) {
       header.classList.add("scrolled");
     } else {
       header.classList.remove("scrolled");

@@ -65,17 +65,15 @@ if ($_POST && isset($_POST['contact_submit'])) {
                 <div class="logo">
                     <a href="#home">Arka Nath</a>
                 </div>
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#achievements" class="nav-link">Achievements</a></li>
-                    <li><a href="#extracurricular" class="nav-link">Activities</a></li>
-                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                    <li><a href="#education" class="nav-link">Education</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
+                <div class="nav-menu-wrapper">
+                    <ul class="nav-menu">
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#projects" class="nav-link">Projects</a></li>
+                        <li><a href="#skills" class="nav-link">Skills</a></li>
+                        <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </div>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
