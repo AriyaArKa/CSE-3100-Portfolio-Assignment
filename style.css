@@ -1,3 +1,6 @@
+/* Import magical fonts */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Uncial+Antiqua&display=swap");
+
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -10,7 +13,7 @@ html {
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Cinzel", "Segoe UI", Tahoma, Geneva, Verdana, serif;
   line-height: 1.6;
   color: #333;
   background-color: #fff;
@@ -47,10 +50,13 @@ body {
 }
 
 .logo a {
-  font-size: 1.5rem;
+  font-family: "Cinzel Decorative", "Cinzel", serif;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #4a90e2;
+  color: #d4af37;
   text-decoration: none;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
 }
 
 .nav-menu {
@@ -62,13 +68,15 @@ body {
 .nav-link {
   text-decoration: none;
   color: white;
+  font-family: "Cinzel", serif;
   font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
+  letter-spacing: 1px;
 }
 
 .nav-link:hover {
-  color: #4a90e2;
+  color: #d4af37;
 }
 
 .nav-link::after {
@@ -78,7 +86,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: #4a90e2;
+  background: #d4af37;
   transition: width 0.3s ease;
 }
 
@@ -136,17 +144,24 @@ body {
 }
 
 .hero-title {
+  font-family: "Cinzel Decorative", "Cinzel", serif;
   font-size: 3.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
   animation: fadeInUp 1s ease;
+  color: #d4af37;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
 }
 
 .hero-subtitle {
+  font-family: "Cinzel", serif;
   font-size: 1.2rem;
   margin-bottom: 2rem;
   opacity: 0.9;
   animation: fadeInUp 1s ease 0.2s both;
+  font-style: italic;
+  letter-spacing: 1px;
 }
 
 .hero-links {
@@ -175,20 +190,23 @@ body {
 
 .cta-button {
   display: inline-block;
-  background: #ff6b6b;
-  color: white;
+  background: linear-gradient(135deg, #d4af37 0%, #f39c12 100%);
+  color: #2c3e50;
   padding: 1rem 2rem;
   text-decoration: none;
   border-radius: 30px;
+  font-family: "Cinzel", serif;
   font-weight: bold;
   transition: all 0.3s ease;
   animation: fadeInUp 1s ease 0.6s both;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .cta-button:hover {
-  background: #ff5252;
+  background: linear-gradient(135deg, #f39c12 0%, #d4af37 100%);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
 }
 
 .hero-image {
@@ -218,11 +236,14 @@ section {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-family: "Cinzel Decorative", "Cinzel", serif;
+  font-size: 2.8rem;
   text-align: center;
   margin-bottom: 3rem;
-  color: white;
+  color: #d4af37;
   position: relative;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
 }
 
 .section-title::after {
@@ -233,8 +254,9 @@ section {
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #d4af37 0%, #f39c12 100%);
   border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* About Section */
@@ -270,10 +292,12 @@ section {
 }
 
 .about-text p {
+  font-family: "Cinzel", serif;
   font-size: 1.1rem;
   line-height: 1.8;
   color: white;
   margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
 }
 
 .education h3 {
@@ -400,16 +424,20 @@ section {
 }
 
 .education-content h3 {
+  font-family: "Cinzel", serif;
   font-size: 1.3rem;
   color: #333;
   margin-bottom: 0.5rem;
+  letter-spacing: 1px;
 }
 
 .education-content h4 {
+  font-family: "Cinzel", serif;
   font-size: 1.1rem;
   color: #4a90e2;
   margin-bottom: 1rem;
   font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .education-content p {
@@ -483,9 +511,11 @@ section {
 }
 
 .project-content h3 {
+  font-family: "Cinzel", serif;
   font-size: 1.3rem;
   margin-bottom: 1rem;
   color: #333;
+  letter-spacing: 1px;
 }
 
 .project-content p {
@@ -565,10 +595,12 @@ section {
 }
 
 .skill-category h3 {
+  font-family: "Cinzel", serif;
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
   color: #333;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .skill-item {
@@ -655,9 +687,11 @@ section {
 }
 
 .achievement-content h3 {
+  font-family: "Cinzel", serif;
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: #333;
+  letter-spacing: 1px;
 }
 
 .achievement-content p {
@@ -725,8 +759,10 @@ section {
 .activity-card h4 {
   color: #4a90e2;
   margin-bottom: 1rem;
+  font-family: "Cinzel", serif;
   font-size: 1.2rem;
   font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .activity-card p {
@@ -863,18 +899,23 @@ section {
 }
 
 .magical-title {
+  font-family: "Cinzel Decorative", "Cinzel", serif;
   font-size: 3rem;
   font-weight: bold;
   color: #d4af37;
   margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
 }
 
 .magical-subtitle {
+  font-family: "Cinzel", serif;
   font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 3rem;
   color: white;
+  font-style: italic;
+  letter-spacing: 1px;
 }
 
 .contact-details {
@@ -930,6 +971,7 @@ section {
 .form-title {
   text-align: center;
   color: #d4af37;
+  font-family: "Cinzel Decorative", "Cinzel", serif;
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 2rem;
@@ -937,7 +979,8 @@ section {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
 }
 
 .form-title i {
@@ -1348,6 +1391,10 @@ section {
     font-size: 2.5rem;
   }
 
+  .section-title {
+    font-size: 2rem;
+  }
+
   .about-content,
   .contact-content {
     grid-template-columns: 1fr;
@@ -1439,7 +1486,11 @@ section {
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .magical-title {
+    font-size: 2.2rem;
   }
 
   .container {
