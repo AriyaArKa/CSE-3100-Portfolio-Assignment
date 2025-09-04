@@ -4,6 +4,14 @@ A magical Harry Potter-themed portfolio website showcasing my journey as a Compu
 
 ![Portfolio Hero Section](images/portfolioImage/hero.PNG)
 
+## 🎬 **Live Demo & Video Walkthrough**
+
+📹 **Watch the Portfolio in Action**: [Portfolio Demo Video](https://drive.google.com/drive/u/0/folders/1xKOpEkvkJDJ6KoFzL2-Ux_if0OnPBvnv)
+
+_Experience the magical journey through my portfolio with a complete video demonstration showcasing all features, animations, and functionality._
+
+---
+
 ### Features
 
 ### **Magical User Interface**
@@ -108,7 +116,7 @@ A magical Harry Potter-themed portfolio website showcasing my journey as a Compu
 - Professional cookie settings modal
 - Analytics and marketing cookie controls
 
-![Cookie Consent](images/portfolioImage/cookie-consent.png)
+![Cookie Consent](images/portfolioImage/cookies.PNG)
 
 ### 🛡️ **Admin Panel & Management System**
 
@@ -129,15 +137,6 @@ A magical Harry Potter-themed portfolio website showcasing my journey as a Compu
 ![Admin Achievements](images/portfolioImage/adminachieve.PNG)
 
 ![Admin Testimonials](images/portfolioImage/admintestsi.PNG)
-
-### **Navigation & Mobile Experience**
-
-- Fixed navigation with glass morphism effect
-- Professional "Get In Touch" CTA button
-- Mobile-optimized hamburger menu
-- Smooth scroll navigation
-
-![Navigation](images/portfolioImage/navigation.PNG)
 
 ## **Technology Stack**
 
