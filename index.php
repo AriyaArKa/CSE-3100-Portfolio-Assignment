@@ -116,9 +116,9 @@ if ($_POST && isset($_POST['contact_submit'])) {
             <h2 class="section-title">The Marauder's Map</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I am a passionate Computer Science & Engineering student at KUET with a strong foundation in programming, AI/ML, and full-stack development. I love creating innovative solutions and am always eager to learn new technologies.</p>
-                    <p>My journey in technology started early, and I've been consistently developing my skills through various projects, competitions, and hands-on experiences. I believe in continuous learning and staying updated with the latest technological advancements.</p>
-                    <p>When I'm not coding, I enjoy participating in hackathons, contributing to open-source projects, and sharing knowledge with the developer community. I'm particularly interested in artificial intelligence, machine learning, and their applications in solving real-world problems.</p>
+                    <p>I am a Computer Science & Engineering student with diverse interests across different technological domains. My passion lies in creating problem-based solutions that address real-world challenges.</p>
+                    <p>I specialize in developing REST APIs, building dynamic websites and mobile applications, and creating compelling graphics designs. My technical expertise spans across full-stack development with a focus on user-centric solutions.</p>
+                    <p>My core interests include Machine Learning, Natural Language Processing, and Artificial Intelligence. I enjoy exploring how these cutting-edge technologies can be leveraged to solve complex problems and create innovative digital experiences.</p>
                 </div>
             </div>
         </div>
@@ -296,22 +296,62 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <section id="extracurricular" class="extracurricular-section">
         <div class="container">
             <h2 class="section-title">The Room of Requirement</h2>
+
             <div class="activities-grid">
-                <div class="activity-card">
-                    <h4>Senior Executive</h4>
-                    <p>KUET Business & Entrepreneurship Club (KBEC)</p>
+                <div class="newspaper-clipping">
+                    <div class="newspaper-header">
+                        <h3>The Daily Prophet</h3>
+                        <span class="newspaper-date">September 2024</span>
+                    </div>
+                    <div class="moving-picture">
+                        <img src="images/horizons_hogwarts.png" alt="Business Leadership">
+                        <div class="picture-overlay"></div>
+                    </div>
+                    <div class="newspaper-content">
+                        <h4>Young Wizard Appointed Senior Executive</h4>
+                        <p class="newspaper-text">Local student demonstrates exceptional leadership skills in the prestigious KUET Business & Entrepreneurship Club, leading magical commerce initiatives.</p>
+                        <div class="newspaper-pin"></div>
+                    </div>
                 </div>
-                <div class="activity-card">
-                    <h4>Sub Autonomous-Trainee</h4>
-                    <p>Team DURBAR (Mars Rover project)</p>
+
+                <div class="newspaper-clipping">
+                    <div class="newspaper-header">
+                        <h3>The Daily Prophet</h3>
+                        <span class="newspaper-date">October 2024</span>
+                    </div>
+                    <div class="moving-picture">
+                        <img src="images/horizons_train.png" alt="Mars Rover Innovation">
+                        <div class="picture-overlay"></div>
+                    </div>
+                    <div class="newspaper-content">
+                        <h4>Revolutionary Mars Exploration Project</h4>
+                        <p class="newspaper-text">Talented apprentice joins Team DURBAR's autonomous magical vehicle project, bringing innovation to interplanetary exploration endeavors.</p>
+                        <div class="newspaper-pin"></div>
+                    </div>
                 </div>
-                <div class="activity-card">
-                    <h4>Design Member</h4>
-                    <p>Bit to Byte (R&D Community)</p>
+
+                <div class="newspaper-clipping">
+                    <div class="newspaper-header">
+                        <h3>The Daily Prophet</h3>
+                        <span class="newspaper-date">November 2024</span>
+                    </div>
+                    <div class="moving-picture">
+                        <img src="images/horizons_quidditch.png" alt="Research Innovation">
+                        <div class="picture-overlay"></div>
+                    </div>
+                    <div class="newspaper-content">
+                        <h4>Design Wizard Joins Elite R&D Circle</h4>
+                        <p class="newspaper-text">Creative mind contributes magical design expertise to Bit to Byte community, advancing research and development in the wizarding tech world.</p>
+                        <div class="newspaper-pin"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
+
 
 
 
