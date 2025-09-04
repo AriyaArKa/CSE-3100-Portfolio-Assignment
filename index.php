@@ -223,24 +223,68 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Achievements Section -->
     <section id="achievements" class="achievements">
         <div class="container">
-            <h2 class="section-title">Gringotts Vault</h2>
+            <h2 class="section-title magical-title">Gringotts Vault</h2>
             <div class="achievements-grid">
                 <?php foreach ($achievements as $achievement): ?>
-                    <div class="achievement-card">
-                        <?php if (!empty($achievement['image'])): ?>
-                            <div class="achievement-image">
-                                <img src="<?php echo htmlspecialchars($achievement['image']); ?>"
-                                    alt="<?php echo htmlspecialchars($achievement['title']); ?>">
+                    <div class="achievement-flip-card">
+                        <div class="flip-card-inner">
+                            <!-- Front of Card -->
+                            <div class="flip-card-front">
+                                <div class="card-border">
+                                    <div class="card-corner top-left"></div>
+                                    <div class="card-corner top-right"></div>
+                                    <div class="card-corner bottom-left"></div>
+                                    <div class="card-corner bottom-right"></div>
+
+                                    <?php if (!empty($achievement['image'])): ?>
+                                        <div class="achievement-image">
+                                            <img src="<?php echo htmlspecialchars($achievement['image']); ?>"
+                                                alt="<?php echo htmlspecialchars($achievement['title']); ?>">
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="achievement-icon">
+                                            <i class="fas fa-trophy"></i>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <div class="card-title">
+                                        <h3><?php echo htmlspecialchars($achievement['title']); ?></h3>
+                                    </div>
+
+                                    <div class="card-frame"></div>
+                                </div>
                             </div>
-                        <?php else: ?>
-                            <div class="achievement-icon">
-                                <i class="fas fa-trophy"></i>
+
+                            <!-- Back of Card -->
+                            <div class="flip-card-back">
+                                <div class="card-border">
+                                    <div class="card-corner top-left"></div>
+                                    <div class="card-corner top-right"></div>
+                                    <div class="card-corner bottom-left"></div>
+                                    <div class="card-corner bottom-right"></div>
+
+                                    <div class="parchment-content">
+                                        <div class="achievement-details">
+                                            <h3><?php echo htmlspecialchars($achievement['title']); ?></h3>
+                                            <p class="achievement-description"><?php echo htmlspecialchars($achievement['description']); ?></p>
+                                            <div class="achievement-meta">
+                                                <span class="achievement-date">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                    <?php echo date('F Y', strtotime($achievement['date_achieved'])); ?>
+                                                </span>
+                                                <?php if (!empty($achievement['category'])): ?>
+                                                    <span class="achievement-category">
+                                                        <i class="fas fa-tag"></i>
+                                                        <?php echo htmlspecialchars($achievement['category']); ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-frame"></div>
+                                </div>
                             </div>
-                        <?php endif; ?>
-                        <div class="achievement-content">
-                            <h3><?php echo htmlspecialchars($achievement['title']); ?></h3>
-                            <p><?php echo htmlspecialchars($achievement['description']); ?></p>
-                            <span class="achievement-date"><?php echo date('F Y', strtotime($achievement['date_achieved'])); ?></span>
                         </div>
                     </div>
                 <?php endforeach; ?>
