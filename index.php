@@ -113,7 +113,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title">The Marauder's Map</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>I am a passionate Computer Science & Engineering student at KUET with a strong foundation in programming, AI/ML, and full-stack development. I love creating innovative solutions and am always eager to learn new technologies.</p>
@@ -127,7 +127,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">Projects</h2>
+            <h2 class="section-title">The Spellbook</h2>
             <div class="projects-grid">
                 <?php foreach ($projects as $project): ?>
                     <div class="project-card">
@@ -162,7 +162,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title">Skills</h2>
+            <h2 class="section-title">Wand Armory</h2>
             <div class="skills-container">
                 <?php foreach ($skills as $category => $categorySkills): ?>
                     <div class="skill-category">
@@ -187,7 +187,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Achievements Section -->
     <section id="achievements" class="achievements">
         <div class="container">
-            <h2 class="section-title">Achievements</h2>
+            <h2 class="section-title">Gringotts Vault</h2>
             <div class="achievements-grid">
                 <?php foreach ($achievements as $achievement): ?>
                     <div class="achievement-card">
@@ -208,7 +208,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Extracurricular Activities Section -->
     <section id="extracurricular" class="extracurricular-section">
         <div class="container">
-            <h2 class="section-title">Extracurricular Activities</h2>
+            <h2 class="section-title">The Room of Requirement</h2>
             <div class="activities-grid">
                 <div class="activity-card">
                     <h4>Senior Executive</h4>
@@ -231,7 +231,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Education Section -->
     <section id="education" class="education-section">
         <div class="container">
-            <h2 class="section-title">Education</h2>
+            <h2 class="section-title">Hogwarts Records</h2>
             <div class="education-timeline">
                 <div class="education-item">
                     <div class="education-year">2023 – Present</div>
