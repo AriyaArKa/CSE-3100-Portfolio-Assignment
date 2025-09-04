@@ -85,27 +85,15 @@ if ($_POST && isset($_POST['contact_submit'])) {
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-background-image">
+            <img src="images/download__14_-removebg-preview.png" alt="Background" class="blurry-background">
+        </div>
         <div class="hero-content">
             <div class="hero-text">
-                <h1 class="hero-title">Arka Braja Prasad Nath</h1>
-                <p class="hero-subtitle">Computer Science & Engineering Student | Developer | AI & ML Enthusiast</p>
-                <div class="hero-links">
-                    <a href="https://github.com/AriyaArKa" target="_blank" class="hero-link">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="https://www.kaggle.com/arkaariya" target="_blank" class="hero-link">
-                        <i class="fab fa-kaggle"></i> Kaggle
-                    </a>
-                    <a href="https://www.linkedin.com/in/arka-nath55/" target="_blank" class="hero-link">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                    </a>
-                </div>
-                <a href="#about" class="cta-button">Learn More About Me</a>
-            </div>
-            <div class="hero-image">
-                <div class="profile-image">
-                    <img src="https://via.placeholder.com/300x300/4a90e2/ffffff?text=AN" alt="Arka Nath">
-                </div>
+                <h1 class="hero-welcome">Welcome to My Portfolio</h1>
+                <h2 class="hero-name">Hi, I am Arka Braja Prasad Nath</h2>
+                <p class="hero-subtitle">CSE Student | Developer | AI ML Enthusiast</p>
+                <a href="#about" class="cta-button">Let's Explore My Magical Journey</a>
             </div>
         </div>
     </section>
@@ -455,19 +443,23 @@ if ($_POST && isset($_POST['contact_submit'])) {
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>YOUR.EMAIL@HOGWARTS.EDU</span>
+                            <span>arkaariya@gmail.com</span>
                         </div>
                         <div class="contact-item">
                             <i class="fab fa-linkedin"></i>
-                            <span>LINKEDIN.COM/IN/YOURNAME</span>
+                            <span>linkedin.com/in/arka-nath55</span>
                         </div>
                         <div class="contact-item">
                             <i class="fab fa-github"></i>
-                            <span>GITHUB.COM/YOURNAME</span>
+                            <span>github.com/AriyaArKa</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-kaggle"></i>
+                            <span>kaggle.com/arkaariya</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+1 (555) 123-4567</span>
+                            <span>+880 1234567890</span>
                         </div>
                     </div>
                 </div>
