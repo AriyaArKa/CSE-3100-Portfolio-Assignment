@@ -1522,7 +1522,10 @@ section {
 
 .footer-content p {
   margin: 0;
-  color: white;
+  color: #d4af37;
+  font-family: "Cinzel", serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .footer-links {
@@ -1532,13 +1535,16 @@ section {
 }
 
 .footer-links a {
-  color: white;
+  color: rgba(212, 175, 55, 0.8);
   font-size: 1.5rem;
-  transition: color 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .footer-links a:hover {
-  color: #4a90e2;
+  color: #d4af37;
+  transform: translateY(-3px) scale(1.1);
+  text-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
 }
 
 /* Animations */
