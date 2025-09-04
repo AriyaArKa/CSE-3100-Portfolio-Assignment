@@ -219,6 +219,28 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("load", () => {
     document.body.classList.add("loaded");
   });
+
+  // Skills category switching
+  const categoryBtns = document.querySelectorAll(".category-btn");
+  const skillCategories = document.querySelectorAll(".skill-category");
+
+  categoryBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Remove active class from all buttons and categories
+      categoryBtns.forEach((b) => b.classList.remove("active"));
+      skillCategories.forEach((cat) => cat.classList.remove("active"));
+
+      // Add active class to clicked button
+      btn.classList.add("active");
+
+      // Show corresponding category
+      const categoryId = btn.getAttribute("data-category");
+      const targetCategory = document.getElementById(categoryId);
+      if (targetCategory) {
+        targetCategory.classList.add("active");
+      }
+    });
+  });
 });
 
 // Admin Panel JavaScript

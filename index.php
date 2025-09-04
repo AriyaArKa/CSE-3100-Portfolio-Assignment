@@ -164,22 +164,37 @@ if ($_POST && isset($_POST['contact_submit'])) {
         <div class="container">
             <h2 class="section-title">Wand Armory</h2>
             <div class="skills-container">
-                <?php foreach ($skills as $category => $categorySkills): ?>
-                    <div class="skill-category">
-                        <h3><?php echo htmlspecialchars($category); ?></h3>
-                        <div class="skills-list">
+                <div class="skill-categories-nav">
+                    <?php $first = true;
+                    foreach ($skills as $category => $categorySkills): ?>
+                        <button class="category-btn <?php echo $first ? 'active' : ''; ?>" data-category="<?php echo strtolower(str_replace(' ', '-', $category)); ?>">
+                            <?php echo htmlspecialchars($category); ?>
+                        </button>
+                    <?php $first = false;
+                    endforeach; ?>
+                </div>
+
+                <?php $first = true;
+                foreach ($skills as $category => $categorySkills): ?>
+                    <div class="skill-category <?php echo $first ? 'active' : ''; ?>" id="<?php echo strtolower(str_replace(' ', '-', $category)); ?>">
+                        <div class="skills-grid">
                             <?php foreach ($categorySkills as $skill): ?>
-                                <div class="skill-item">
-                                    <span class="skill-name"><?php echo htmlspecialchars($skill['skill_name']); ?></span>
-                                    <div class="skill-bar">
-                                        <div class="skill-progress" style="width: <?php echo $skill['proficiency']; ?>%"></div>
+                                <div class="skill-card">
+                                    <div class="skill-name"><?php echo htmlspecialchars($skill['skill_name']); ?></div>
+                                    <div class="skill-progress-circle">
+                                        <svg class="progress-ring" width="60" height="60">
+                                            <circle class="progress-ring-circle" cx="30" cy="30" r="22"></circle>
+                                            <circle class="progress-ring-progress" cx="30" cy="30" r="22"
+                                                style="stroke-dasharray: <?php echo 2 * 3.14159 * 22 * ($skill['proficiency'] / 100); ?> <?php echo 2 * 3.14159 * 22; ?>;"></circle>
+                                        </svg>
+                                        <div class="skill-percent"><?php echo $skill['proficiency']; ?>%</div>
                                     </div>
-                                    <span class="skill-percent"><?php echo $skill['proficiency']; ?>%</span>
                                 </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php $first = false;
+                endforeach; ?>
             </div>
         </div>
     </section>
