@@ -178,10 +178,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Auto-rotate testimonials every 5 seconds
   if (testimonialCards.length > 1) {
-    setInterval(nextTestimonial, 5000);
-  }
-
-  // Header background on scroll - Enhanced for centered navbar
+    // Auto-rotation removed - manual slider only
+  } // Header background on scroll - Enhanced for centered navbar
   const header = document.querySelector(".header");
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
@@ -353,3 +351,62 @@ if (window.location.pathname.includes("admin")) {
     });
   });
 }
+
+// Testimonials Slider Functionality
+let currentTestimonialIndex = 0;
+
+function showTestimonialSlide(index) {
+  const slides = document.querySelectorAll(".testimonial-slide");
+  const dots = document.querySelectorAll(".slider-dots .dot");
+
+  // Hide all slides
+  slides.forEach((slide) => {
+    slide.classList.remove("active");
+  });
+
+  // Remove active class from all dots
+  dots.forEach((dot) => {
+    dot.classList.remove("active");
+  });
+
+  // Show current slide
+  if (slides[index]) {
+    slides[index].classList.add("active");
+  }
+
+  // Activate current dot
+  if (dots[index]) {
+    dots[index].classList.add("active");
+  }
+}
+
+function changeTestimonialSlide(direction) {
+  const slides = document.querySelectorAll(".testimonial-slide");
+
+  if (slides.length === 0) return;
+
+  currentTestimonialIndex += direction;
+
+  if (currentTestimonialIndex >= slides.length) {
+    currentTestimonialIndex = 0;
+  } else if (currentTestimonialIndex < 0) {
+    currentTestimonialIndex = slides.length - 1;
+  }
+
+  showTestimonialSlide(currentTestimonialIndex);
+}
+
+function currentTestimonialSlide(index) {
+  currentTestimonialIndex = index - 1;
+  showTestimonialSlide(currentTestimonialIndex);
+}
+
+// Initialize testimonials slider when DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".testimonial-slide");
+
+  if (slides.length > 0) {
+    showTestimonialSlide(0);
+    // Auto-play removed - manual navigation only
+  }
+});

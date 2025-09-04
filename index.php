@@ -265,29 +265,51 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
-            <h2 class="section-title">Testimonials</h2>
-            <div class="testimonials-slider">
-                <?php foreach ($testimonials as $testimonial): ?>
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <div class="stars">
-                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <i class="fas fa-star<?php echo $i <= $testimonial['rating'] ? '' : '-empty'; ?>"></i>
-                                <?php endfor; ?>
-                            </div>
-                            <p>"<?php echo htmlspecialchars($testimonial['message']); ?>"</p>
-                            <div class="testimonial-author">
-                                <div class="author-image">
-                                    <img src="<?php echo $testimonial['image'] ?: 'https://via.placeholder.com/80x80/4a90e2/ffffff?text=' . substr($testimonial['name'], 0, 1); ?>" alt="<?php echo htmlspecialchars($testimonial['name']); ?>">
-                                </div>
-                                <div class="author-info">
-                                    <h4><?php echo htmlspecialchars($testimonial['name']); ?></h4>
-                                    <p><?php echo htmlspecialchars($testimonial['position']); ?><?php echo $testimonial['company'] ? ' at ' . htmlspecialchars($testimonial['company']) : ''; ?></p>
+            <h2 class="section-title">
+                <i class="fas fa-feather-alt"></i>
+                The Daily Prophet
+            </h2>
+            <div class="testimonials-slider-container">
+                <button class="slider-btn prev-btn" onclick="changeTestimonialSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="testimonials-slider">
+                    <?php foreach ($testimonials as $index => $testimonial): ?>
+                        <div class="testimonial-slide <?php echo $index === 0 ? 'active' : ''; ?>" data-slide="<?php echo $index + 1; ?>">
+                            <div class="testimonial-card">
+                                <div class="parchment-note">
+                                    <div class="note-content">
+                                        <div class="stars">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <i class="fas fa-star<?php echo $i <= $testimonial['rating'] ? '' : '-empty'; ?>"></i>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <div class="testimonial-text">
+                                            <p>"<?php echo htmlspecialchars($testimonial['message']); ?>"</p>
+                                        </div>
+                                        <div class="testimonial-author">
+                                            <div class="author-image">
+                                                <img src="<?php echo $testimonial['image'] ?: 'https://via.placeholder.com/60x60/8b4513/ffffff?text=' . substr($testimonial['name'], 0, 1); ?>" alt="<?php echo htmlspecialchars($testimonial['name']); ?>">
+                                            </div>
+                                            <div class="author-info">
+                                                <h4><?php echo htmlspecialchars($testimonial['name']); ?></h4>
+                                                <p><?php echo htmlspecialchars($testimonial['position']); ?><?php echo $testimonial['company'] ? ' at ' . htmlspecialchars($testimonial['company']) : ''; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
+                    <div class="slider-dots">
+                        <?php foreach ($testimonials as $index => $testimonial): ?>
+                            <span class="dot <?php echo $index === 0 ? 'active' : ''; ?>" onclick="currentTestimonialSlide(<?php echo $index + 1; ?>)"></span>
+                        <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
+                </div>
+                <button class="slider-btn next-btn" onclick="changeTestimonialSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
