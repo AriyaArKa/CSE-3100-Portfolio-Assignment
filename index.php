@@ -128,33 +128,54 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">The Spellbook</h2>
-            <div class="projects-grid">
-                <?php foreach ($projects as $project): ?>
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="<?php echo $project['image'] ?: 'https://via.placeholder.com/300x200/4a90e2/ffffff?text=Project'; ?>" alt="<?php echo htmlspecialchars($project['title']); ?>">
-                        </div>
-                        <div class="project-content">
-                            <h3><?php echo htmlspecialchars($project['title']); ?></h3>
-                            <p><?php echo htmlspecialchars($project['description']); ?></p>
-                            <div class="project-tech">
-                                <span class="tech-tag"><?php echo htmlspecialchars($project['technologies']); ?></span>
+            <div class="projects-slider-wrapper">
+                <div class="projects-slider">
+                    <?php foreach ($projects as $index => $project): ?>
+                        <div class="project-slide" data-index="<?php echo $index; ?>">
+                            <div class="project-card">
+                                <div class="project-image">
+                                    <img src="<?php echo $project['image'] ?: 'https://via.placeholder.com/300x200/4a90e2/ffffff?text=Project'; ?>" alt="<?php echo htmlspecialchars($project['title']); ?>">
+                                </div>
+                                <div class="project-content">
+                                    <h3><?php echo htmlspecialchars($project['title']); ?></h3>
+                                    <p><?php echo htmlspecialchars($project['description']); ?></p>
+                                    <div class="project-tech">
+                                        <?php
+                                        $techs = explode(',', $project['technologies']);
+                                        foreach ($techs as $tech):
+                                            $tech = trim($tech);
+                                            if (!empty($tech)):
+                                        ?>
+                                                <span class="tech-tag"><?php echo htmlspecialchars($tech); ?></span>
+                                        <?php
+                                            endif;
+                                        endforeach;
+                                        ?>
+                                    </div>
+                                    <div class="project-links">
+                                        <?php if ($project['github_link']): ?>
+                                            <a href="<?php echo htmlspecialchars($project['github_link']); ?>" target="_blank" class="project-link">
+                                                <i class="fab fa-github"></i> GitHub
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if ($project['demo_link']): ?>
+                                            <a href="<?php echo htmlspecialchars($project['demo_link']); ?>" target="_blank" class="project-link">
+                                                <i class="fas fa-external-link-alt"></i> Demo
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="project-links">
-                                <?php if ($project['github_link']): ?>
-                                    <a href="<?php echo htmlspecialchars($project['github_link']); ?>" target="_blank" class="project-link">
-                                        <i class="fab fa-github"></i> GitHub
-                                    </a>
-                                <?php endif; ?>
-                                <?php if ($project['demo_link']): ?>
-                                    <a href="<?php echo htmlspecialchars($project['demo_link']); ?>" target="_blank" class="project-link">
-                                        <i class="fas fa-external-link-alt"></i> Demo
-                                    </a>
-                                <?php endif; ?>
-                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
+                <div class="slider-dots">
+                    <?php foreach ($projects as $index => $project): ?>
+                        <button class="slider-dot" onclick="goToSlide(<?php echo $index; ?>)"></button>
+                    <?php endforeach; ?>
+                </div>
+                <button class="slider-nav prev" onclick="previousSlide()"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-nav next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>

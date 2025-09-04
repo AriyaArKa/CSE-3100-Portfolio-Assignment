@@ -431,4 +431,96 @@ document.addEventListener("DOMContentLoaded", function () {
     showTestimonialSlide(0);
     // Auto-play removed - manual navigation only
   }
+
+  // Initialize projects slider
+  initializeProjectsSlider();
 });
+
+// Projects Slider Functionality
+let currentProjectIndex = 0;
+
+function initializeProjectsSlider() {
+  const slides = document.querySelectorAll(".project-slide");
+  if (slides.length === 0) return;
+
+  currentProjectIndex = Math.floor(slides.length / 2); // Start with middle slide
+  updateProjectsSlider();
+}
+
+function updateProjectsSlider() {
+  const slides = document.querySelectorAll(".project-slide");
+  const dots = document.querySelectorAll(".slider-dot");
+  const totalSlides = slides.length;
+
+  if (totalSlides === 0) return;
+
+  slides.forEach((slide, index) => {
+    slide.classList.remove("center");
+    slide.style.display = "block";
+
+    const position = index - currentProjectIndex;
+
+    if (position === 0) {
+      // Center slide
+      slide.classList.add("center");
+      slide.style.transform = "translateX(-50%) scale(1)";
+      slide.style.opacity = "1";
+      slide.style.zIndex = "3";
+      slide.style.filter = "blur(0)";
+    } else if (position === -1) {
+      // Left adjacent
+      slide.style.transform = "translateX(-150%) scale(0.8)";
+      slide.style.opacity = "0.6";
+      slide.style.zIndex = "2";
+      slide.style.filter = "blur(1px)";
+    } else if (position === 1) {
+      // Right adjacent
+      slide.style.transform = "translateX(50%) scale(0.8)";
+      slide.style.opacity = "0.6";
+      slide.style.zIndex = "2";
+      slide.style.filter = "blur(1px)";
+    } else if (position === -2) {
+      // Far left
+      slide.style.transform = "translateX(-250%) scale(0.7)";
+      slide.style.opacity = "0.3";
+      slide.style.zIndex = "1";
+      slide.style.filter = "blur(2px)";
+    } else if (position === 2) {
+      // Far right
+      slide.style.transform = "translateX(150%) scale(0.7)";
+      slide.style.opacity = "0.3";
+      slide.style.zIndex = "1";
+      slide.style.filter = "blur(2px)";
+    } else {
+      // Hidden slides
+      slide.style.display = "none";
+    }
+  });
+
+  // Update dots
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentProjectIndex);
+  });
+}
+
+function nextSlide() {
+  const slides = document.querySelectorAll(".project-slide");
+  if (slides.length === 0) return;
+
+  currentProjectIndex = (currentProjectIndex + 1) % slides.length;
+  updateProjectsSlider();
+}
+
+function previousSlide() {
+  const slides = document.querySelectorAll(".project-slide");
+  if (slides.length === 0) return;
+
+  currentProjectIndex =
+    currentProjectIndex === 0 ? slides.length - 1 : currentProjectIndex - 1;
+  updateProjectsSlider();
+}
+
+function goToSlide(index) {
+  currentProjectIndex = index;
+  updateProjectsSlider();
+}
