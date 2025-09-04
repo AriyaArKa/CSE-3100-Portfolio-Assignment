@@ -71,8 +71,11 @@ if ($_POST && isset($_POST['contact_submit'])) {
                         <li><a href="#projects" class="nav-link">Projects</a></li>
                         <li><a href="#skills" class="nav-link">Skills</a></li>
                         <li><a href="#achievements" class="nav-link">Achievements</a></li>
-                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                     </ul>
+                </div>
+                <div class="nav-cta">
+                    <a href="#contact" class="nav-contact-btn">Get In Touch</a>
                 </div>
                 <div class="hamburger">
                     <span></span>
@@ -292,7 +295,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                         <span class="newspaper-date">September 2024</span>
                     </div>
                     <div class="moving-picture">
-                        <img src="images/horizons_hogwarts.png" alt="Business Leadership">
+                        <img src="images/projectsImage/WhatsApp Image 2025-09-04 at 22.41.41_ae0cdee6.jpg" alt="Business Leadership">
                         <div class="picture-overlay"></div>
                     </div>
                     <div class="newspaper-content">
@@ -308,7 +311,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                         <span class="newspaper-date">October 2024</span>
                     </div>
                     <div class="moving-picture">
-                        <img src="images/horizons_train.png" alt="Mars Rover Innovation">
+                        <img src="images/projectsImage/WhatsApp Image 2025-09-04 at 22.41.40_4f690b93.jpg" alt="Mars Rover Innovation">
                         <div class="picture-overlay"></div>
                     </div>
                     <div class="newspaper-content">
@@ -324,7 +327,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                         <span class="newspaper-date">November 2024</span>
                     </div>
                     <div class="moving-picture">
-                        <img src="images/horizons_quidditch.png" alt="Research Innovation">
+                        <img src="images/projectsImage/WhatsApp Image 2025-09-04 at 22.41.40_c2c3663d.jpg" alt="Research Innovation">
                         <div class="picture-overlay"></div>
                     </div>
                     <div class="newspaper-content">
@@ -353,7 +356,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                     <div class="education-content">
                         <h3>Bachelor of Science in Computer Science & Engineering</h3>
                         <h4>Khulna University of Engineering & Technology (KUET)</h4>
-                        <p>Currently pursuing my undergraduate degree with a focus on software engineering, artificial intelligence, and machine learning. Actively involved in various programming competitions and technical projects.</p>
+                        <p>Pursuing undergraduate degree with focus on software engineering, AI, and machine learning.</p>
                     </div>
                 </div>
                 <div class="education-card">
@@ -517,7 +520,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <div id="cookieConsent" class="cookie-consent">
         <div class="cookie-content">
             <div class="cookie-text">
-                <h4>🍪 We use cookies</h4>
+                <h4>We use cookies</h4>
                 <p>This website uses cookies to enhance your browsing experience and provide personalized content. By continuing to use this site, you consent to our use of cookies.</p>
             </div>
             <div class="cookie-buttons">

@@ -62,6 +62,35 @@ body {
   position: relative;
 }
 
+.nav-cta {
+  z-index: 1001;
+  position: relative;
+}
+
+.nav-contact-btn {
+  background: linear-gradient(135deg, #d4af37 0%, #f39c12 100%);
+  color: #2c3e50;
+  padding: 0.8rem 1.8rem;
+  text-decoration: none;
+  border-radius: 25px;
+  font-family: "Cinzel", serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  white-space: nowrap;
+}
+
+.nav-contact-btn:hover {
+  background: linear-gradient(135deg, #f39c12 0%, #d4af37 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  border-color: #d4af37;
+}
+
 .logo {
   z-index: 1001;
   position: relative;
@@ -2757,6 +2786,33 @@ section {
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
+  }
+
+  .nav-cta {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    background: rgba(18, 11, 14, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+    z-index: 999;
+    width: 100%;
+    text-align: center;
+    margin-top: 250px;
+  }
+
+  .nav-cta.active {
+    right: 0;
+  }
+
+  .nav-contact-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    width: auto;
+    display: inline-block;
   }
 
   .hamburger {

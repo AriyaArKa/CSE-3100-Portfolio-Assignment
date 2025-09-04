@@ -3,11 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Mobile menu toggle
   const hamburger = document.querySelector(".hamburger");
   const navMenuWrapper = document.querySelector(".nav-menu-wrapper");
+  const navCta = document.querySelector(".nav-cta");
 
   if (hamburger && navMenuWrapper) {
     hamburger.addEventListener("click", function () {
       hamburger.classList.toggle("active");
       navMenuWrapper.classList.toggle("active");
+      if (navCta) {
+        navCta.classList.toggle("active");
+      }
     });
 
     // Close mobile menu when clicking on a link
@@ -15,8 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
       link.addEventListener("click", function () {
         hamburger.classList.remove("active");
         navMenuWrapper.classList.remove("active");
+        if (navCta) {
+          navCta.classList.remove("active");
+        }
       });
     });
+
+    // Close mobile menu when clicking on contact button
+    const navContactBtn = document.querySelector(".nav-contact-btn");
+    if (navContactBtn) {
+      navContactBtn.addEventListener("click", function () {
+        hamburger.classList.remove("active");
+        navMenuWrapper.classList.remove("active");
+        if (navCta) {
+          navCta.classList.remove("active");
+        }
+      });
+    }
   }
 
   // Smooth scroll for anchor links
