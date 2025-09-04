@@ -513,6 +513,58 @@ if ($_POST && isset($_POST['contact_submit'])) {
         </div>
     </footer>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4>🍪 We use cookies</h4>
+                <p>This website uses cookies to enhance your browsing experience and provide personalized content. By continuing to use this site, you consent to our use of cookies.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="acceptCookies" class="cookie-btn accept">Accept All</button>
+                <button id="declineCookies" class="cookie-btn decline">Decline</button>
+                <button id="cookieSettings" class="cookie-btn settings">Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieModal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie Settings</h3>
+                <button id="closeCookieModal" class="close-modal">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <div class="cookie-category">
+                    <div class="cookie-toggle">
+                        <input type="checkbox" id="essential" checked disabled>
+                        <label for="essential">Essential Cookies</label>
+                    </div>
+                    <p>These cookies are necessary for the website to function properly.</p>
+                </div>
+                <div class="cookie-category">
+                    <div class="cookie-toggle">
+                        <input type="checkbox" id="analytics">
+                        <label for="analytics">Analytics Cookies</label>
+                    </div>
+                    <p>These cookies help us understand how visitors interact with our website.</p>
+                </div>
+                <div class="cookie-category">
+                    <div class="cookie-toggle">
+                        <input type="checkbox" id="marketing">
+                        <label for="marketing">Marketing Cookies</label>
+                    </div>
+                    <p>These cookies are used to deliver personalized advertisements.</p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button id="saveSettings" class="cookie-btn accept">Save Settings</button>
+                <button id="acceptAllModal" class="cookie-btn accept">Accept All</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
