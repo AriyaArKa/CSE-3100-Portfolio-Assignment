@@ -247,8 +247,8 @@ if ($_POST && isset($_POST['contact_submit'])) {
     <section id="education" class="education-section">
         <div class="container">
             <h2 class="section-title">Hogwarts Records</h2>
-            <div class="education-timeline">
-                <div class="education-item">
+            <div class="education-grid">
+                <div class="education-card">
                     <div class="education-year">2023 – Present</div>
                     <div class="education-content">
                         <h3>Bachelor of Science in Computer Science & Engineering</h3>
@@ -256,7 +256,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                         <p>Currently pursuing my undergraduate degree with a focus on software engineering, artificial intelligence, and machine learning. Actively involved in various programming competitions and technical projects.</p>
                     </div>
                 </div>
-                <div class="education-item">
+                <div class="education-card">
                     <div class="education-year">2021</div>
                     <div class="education-content">
                         <h3>Higher Secondary Certificate</h3>
@@ -265,7 +265,7 @@ if ($_POST && isset($_POST['contact_submit'])) {
                         <p>Completed higher secondary education with excellent academic performance, laying a strong foundation in mathematics, physics, and chemistry.</p>
                     </div>
                 </div>
-                <div class="education-item">
+                <div class="education-card">
                     <div class="education-year">2019</div>
                     <div class="education-content">
                         <h3>Secondary School Certificate</h3>

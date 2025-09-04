@@ -413,101 +413,124 @@ section {
   z-index: 1;
 }
 
-.education-timeline {
-  max-width: 800px;
-  margin: 0 auto;
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 4rem auto 0 auto;
   position: relative;
+  z-index: 2;
 }
 
-.education-timeline::before {
+.education-grid::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transform: translateX(-50%);
+  left: -450px;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 1200px;
+  height: 1000px;
+  background: url("./images/png-clipart-red-and-black-hogwarts-express-train-illustration-hogwarts-express-the-wizarding-world-of-harry-potter-ron-weasley-harry-potter-and-the-philosopher-s-stone-steam-mode-of-transport-railroad (1).png") center center no-repeat;
+  background-size: contain;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.education-timeline .education-item {
-  background: white;
-  padding: 2rem;
+.education-grid::after {
+  content: "";
+  position: absolute;
+  right: -650px;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 1200px;
+  height: 900px;
+  background: url("./images/Fotos_de_Harry_potter_-_Baixe_fotos_grátis_de_alta_qualidade___Freepik-removebg-preview.png") center center no-repeat;
+  background-size: contain;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.education-card {
+  background: rgba(26, 26, 46, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: 15px;
-  margin-bottom: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 1.8rem;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  width: calc(50% - 2rem);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
-.education-timeline .education-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-.education-timeline .education-item:nth-child(odd) {
-  left: 0;
-  text-align: right;
-}
-
-.education-timeline .education-item:nth-child(even) {
-  left: calc(50% + 2rem);
-  text-align: left;
-}
-
-.education-timeline .education-item::before {
-  content: "";
+.education-card::before {
+  content: '';
   position: absolute;
-  top: 2rem;
-  width: 20px;
-  height: 20px;
-  background: #4a90e2;
-  border: 4px solid white;
-  border-radius: 50%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d4af37, #f39c12, #d4af37);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.education-timeline .education-item:nth-child(odd)::before {
-  right: -2.5rem;
+.education-card:hover::before {
+  opacity: 1;
 }
 
-.education-timeline .education-item:nth-child(even)::before {
-  left: -2.5rem;
+.education-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 175, 55, 0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: rgba(26, 26, 46, 0.95);
 }
 
 .education-year {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: bold;
+  background: linear-gradient(135deg, #d4af37, #f39c12);
+  color: #1a1a2e;
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
   font-size: 0.9rem;
-  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 
 .education-content h3 {
   font-family: "Cinzel", serif;
-  font-size: 1.3rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #d4af37;
+  margin-bottom: 0.8rem;
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .education-content h4 {
   font-family: "Cinzel", serif;
   font-size: 1.1rem;
-  color: #4a90e2;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  color: rgba(212, 175, 55, 0.8);
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-style: italic;
 }
 
 .education-content p {
-  color: #666;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
   margin-bottom: 0.8rem;
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+}
+
+.education-content p strong {
+  color: #d4af37;
+  font-weight: 600;
 }
 
 /* Projects Section */
