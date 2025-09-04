@@ -96,7 +96,7 @@ body {
   .hamburger {
     display: none !important;
   }
-  
+
   .nav-menu-wrapper {
     position: absolute;
     left: 50%;
@@ -107,8 +107,6 @@ body {
     z-index: 1000;
   }
 }
-
-
 
 .nav-menu {
   display: flex;
