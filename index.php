@@ -227,9 +227,16 @@ if ($_POST && isset($_POST['contact_submit'])) {
             <div class="achievements-grid">
                 <?php foreach ($achievements as $achievement): ?>
                     <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
+                        <?php if (!empty($achievement['image'])): ?>
+                            <div class="achievement-image">
+                                <img src="<?php echo htmlspecialchars($achievement['image']); ?>"
+                                    alt="<?php echo htmlspecialchars($achievement['title']); ?>">
+                            </div>
+                        <?php else: ?>
+                            <div class="achievement-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        <?php endif; ?>
                         <div class="achievement-content">
                             <h3><?php echo htmlspecialchars($achievement['title']); ?></h3>
                             <p><?php echo htmlspecialchars($achievement['description']); ?></p>

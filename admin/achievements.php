@@ -18,10 +18,11 @@ if ($_POST) {
         $description = trim($_POST['description']);
         $date_achieved = $_POST['date_achieved'];
         $category = trim($_POST['category']);
+        $image = trim($_POST['image']);
 
         if (!empty($title) && !empty($description) && !empty($date_achieved)) {
-            $stmt = $pdo->prepare("INSERT INTO achievements (title, description, date_achieved, category) VALUES (?, ?, ?, ?)");
-            if ($stmt->execute([$title, $description, $date_achieved, $category])) {
+            $stmt = $pdo->prepare("INSERT INTO achievements (title, description, date_achieved, category, image) VALUES (?, ?, ?, ?, ?)");
+            if ($stmt->execute([$title, $description, $date_achieved, $category, $image])) {
                 $message = 'Achievement added successfully!';
             } else {
                 $error = 'Error adding achievement.';
@@ -36,10 +37,11 @@ if ($_POST) {
         $date_achieved = $_POST['date_achieved'];
         $category = trim($_POST['category']);
         $status = $_POST['status'];
+        $image = trim($_POST['image']);
 
         if (!empty($title) && !empty($description) && !empty($date_achieved)) {
-            $stmt = $pdo->prepare("UPDATE achievements SET title = ?, description = ?, date_achieved = ?, category = ?, status = ? WHERE id = ?");
-            if ($stmt->execute([$title, $description, $date_achieved, $category, $status, $id])) {
+            $stmt = $pdo->prepare("UPDATE achievements SET title = ?, description = ?, date_achieved = ?, category = ?, status = ?, image = ? WHERE id = ?");
+            if ($stmt->execute([$title, $description, $date_achieved, $category, $status, $image, $id])) {
                 $message = 'Achievement updated successfully!';
             } else {
                 $error = 'Error updating achievement.';
@@ -124,6 +126,23 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             <textarea id="description" name="description" class="form-control" rows="4" required><?php echo $edit_achievement ? htmlspecialchars($edit_achievement['description']) : ''; ?></textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label for="image">Achievement Image</label>
+                            <input type="text" id="image" name="image" class="form-control"
+                                placeholder="e.g., images/achievement1.jpg or https://example.com/image.png"
+                                value="<?php echo $edit_achievement ? htmlspecialchars($edit_achievement['image']) : ''; ?>">
+                            <small class="form-text text-muted">
+                                Enter the image path relative to the portfolio folder (e.g., images/achievement.jpg) or a full URL
+                            </small>
+                            <?php if ($edit_achievement && !empty($edit_achievement['image'])): ?>
+                                <div class="image-preview" style="margin-top: 10px;">
+                                    <img src="../<?php echo htmlspecialchars($edit_achievement['image']); ?>"
+                                        alt="Current image"
+                                        style="max-width: 200px; max-height: 150px; border-radius: 8px; border: 2px solid #d4af37;">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                             <div class="form-group">
                                 <label for="date_achieved">Date Achieved *</label>
@@ -176,6 +195,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         <table class="admin-table">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Category</th>
@@ -187,8 +207,19 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                             <tbody>
                                 <?php foreach ($achievements as $achievement): ?>
                                     <tr>
+                                        <td>
+                                            <?php if (!empty($achievement['image'])): ?>
+                                                <img src="../<?php echo htmlspecialchars($achievement['image']); ?>"
+                                                    alt="<?php echo htmlspecialchars($achievement['title']); ?>"
+                                                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                                            <?php else: ?>
+                                                <div style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 5px; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-image" style="color: #ccc;"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                        </td>
                                         <td><strong><?php echo htmlspecialchars($achievement['title']); ?></strong></td>
-                                        <td><?php echo htmlspecialchars(substr($achievement['description'], 0, 100)) . (strlen($achievement['description']) > 100 ? '...' : ''); ?></td>
+                                        <td><?php echo htmlspecialchars(substr($achievement['description'], 0, 80)) . (strlen($achievement['description']) > 80 ? '...' : ''); ?></td>
                                         <td>
                                             <?php if ($achievement['category']): ?>
                                                 <span class="badge badge-info"><?php echo htmlspecialchars($achievement['category']); ?></span>

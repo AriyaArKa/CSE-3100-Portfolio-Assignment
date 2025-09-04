@@ -1006,40 +1006,64 @@ section {
 }
 
 .achievement-card {
-  background: white;
-  padding: 2rem;
+  background: rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .achievement-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  border-color: #d4af37;
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+}
+
+.achievement-image {
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.achievement-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.achievement-card:hover .achievement-image img {
+  transform: scale(1.05);
 }
 
 .achievement-icon {
   font-size: 3rem;
-  color: #ffd700;
+  color: #d4af37;
   margin-bottom: 1rem;
 }
 
 .achievement-content h3 {
   font-family: "Cinzel", serif;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: #d4af37;
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .achievement-content p {
-  color: #666;
+  color: #e8e8e8;
   margin-bottom: 1rem;
   line-height: 1.6;
 }
 
 .achievement-date {
-  color: #4a90e2;
+  color: #d4af37;
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -1662,6 +1686,24 @@ section {
 
   .form-title {
     font-size: 1.5rem;
+  }
+
+  /* Responsive design for achievements with images */
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .achievement-card {
+    padding: 1.5rem;
+  }
+  
+  .achievement-image img {
+    height: 180px;
+  }
+  
+  .achievement-content h3 {
+    font-size: 1.3rem;
   }
 }
 
